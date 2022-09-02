@@ -7,6 +7,9 @@ const Stack = createStackNavigator();
 
 import visPrincipal from './vistas/visPrincipal';
 import visCrearUsuario from './vistas/visCrearUsuario';
+import visDetalleUsuario from './vistas/visDetalleUsuario';
+import vistListaUsuario from './vistas/vistListaUsuario';
+import visDistribucion from './vistas/visDistribucion';
 
 
 function MyStack(){
@@ -14,6 +17,9 @@ function MyStack(){
         <Stack.Navigator>
             <Stack.Screen name='visPrincipal' component={visPrincipal} options={{title:'App Maximo'}} />
             <Stack.Screen name='visCrearUsuario' component={visCrearUsuario} options={{title:'App Maximo'}} />
+            <Stack.Screen name='visDetalleUsuario' component={visDetalleUsuario} options={{title:'App Maximo'}} />
+            <Stack.Screen name='vistListaUsuario' component={vistListaUsuario} options={{title:'App Maximo'}} />
+            <Stack.Screen name='visDistribucion' component={visDistribucion} options={{title:'App Maximo'}} />
         </Stack.Navigator>
     );
 }

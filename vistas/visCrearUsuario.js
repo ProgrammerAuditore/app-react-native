@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
-const visCrearUsuario = () => {
+const visCrearUsuario = (props) => {
   return (
       <Text>Crear un usuario.</Text>
   );
@@ -10,5 +10,3 @@ const visCrearUsuario = () => {
 export default visCrearUsuario;
 
 const styles = StyleSheet.create({});
-
-r
