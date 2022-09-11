@@ -15,11 +15,11 @@ import visDistribucion from './vistas/visDistribucion';
 function MyStack(){
     return (
         <Stack.Navigator>
+            <Stack.Screen name='vistListaUsuario' component={vistListaUsuario} options={{title:'App Maximo'}} />
             <Stack.Screen name='visDistribucion' component={visDistribucion} options={{title:'App Maximo'}} />
             <Stack.Screen name='visPrincipal' component={visPrincipal} options={{title:'App Maximo'}} />
             <Stack.Screen name='visCrearUsuario' component={visCrearUsuario} options={{title:'App Maximo'}} />
             <Stack.Screen name='visDetalleUsuario' component={visDetalleUsuario} options={{title:'App Maximo'}} />
-            <Stack.Screen name='vistListaUsuario' component={vistListaUsuario} options={{title:'App Maximo'}} />
         </Stack.Navigator>
     );
 }
