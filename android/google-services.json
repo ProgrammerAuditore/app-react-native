@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1029802926761",
+    "project_id": "appgeolocalizacion-ee271",
+    "storage_bucket": "appgeolocalizacion-ee271.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029802926761:android:81d53d4753ec19a47fbfb8",
+        "android_client_info": {
+          "package_name": "app.react.native"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029802926761-f53uq0kb3rgftta58m78hv5m32kmteb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlggNpdmz6jqvkjUd9O3XUy71a7ixgHzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029802926761-f53uq0kb3rgftta58m78hv5m32kmteb2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
