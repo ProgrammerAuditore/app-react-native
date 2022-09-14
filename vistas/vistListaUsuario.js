@@ -53,7 +53,9 @@ const vistListaUsuario = (props) => {
       <View>
         {
           list.map((l, i) => (
-            <ListItem key={i} bottomDivider>
+            <ListItem 
+            onPress={() => props.navigation.navigate("visDetalleUsuario")}
+            key={i} bottomDivider>
               <Avatar
                 size={"large"}
                 rounded
