@@ -18,6 +18,11 @@ const visPrincipal = (props) => {
         title="Ir a vista usuario" 
         onPress={() => props.navigation.navigate('vistListaUsuario')} />
       </View>
+      <View>
+        <Button 
+        title="Crear usuario" 
+        onPress={() => props.navigation.navigate('visCrearUsuario')} />
+      </View>
     </ScrollView>
   );
 }

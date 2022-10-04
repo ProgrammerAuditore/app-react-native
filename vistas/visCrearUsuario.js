@@ -1,8 +1,40 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Card, Input, Text, Button, Icon } from '@rneui/base';
+import { Card, Input, Text, Button, Icon, Alert } from '@rneui/base';
+import { useState } from 'react';
 
 const visCrearUsuario = (props) => {
+
+  const [state, setState] = useState({
+    usuDireccion: "",
+    usuId: "",
+    usuNombre: "",
+    usuTelefono: "",
+  });
+
+  const handlerChangeText = (usuNombre, value) => {
+    setState({...state, [usuNombre] : value});
+  }
+  
+  const guardarNuevoUsuario = async (usuNombre, value) => {
+    if(state.usuId === '' || state.usuNombre === ''){
+      alert('Favor de introducir todos los valores');
+    } else {
+      await Firebase.conexion 
+      .collection('usuarios')
+      .add(
+        {
+          usuDireccion: state.usuDireccion,
+          usuId : state.usuId,
+          usuNombre : state.usuNombre,
+          usuTelefono : state.usuTelefono
+        }
+      );
+      alert('Usuario creado exitosamente.');
+      props.navigation.navigate('vistListaUsuario');
+    }
+  }
+
   return (
     <ScrollView>
       <View>
@@ -22,6 +54,7 @@ const visCrearUsuario = (props) => {
           <View>
             <Text>Nombre</Text>
             <Input
+              onChangeText={(Valor) => handlerChangeText('usuNombre', Valor)}
               placeholder='Ingresar nombre'
             ></Input>
           </View>
@@ -30,6 +63,7 @@ const visCrearUsuario = (props) => {
           <View>
             <Text>Edad</Text>
             <Input
+              onChangeText={(Valor) => handlerChangeText('usuEdad', Valor)}
               placeholder='Ingresar edad'
             ></Input>
           </View>
@@ -39,6 +73,7 @@ const visCrearUsuario = (props) => {
 
             <Text>Apellidos</Text>
             <Input
+              onChangeText={(Valor) => handlerChangeText('usuApellidos', Apellidos)}
               placeholder='Ingresar apellidos'
             ></Input>
           </View>
@@ -47,6 +82,7 @@ const visCrearUsuario = (props) => {
           <View>
             <Text>Dirección</Text>
             <Input
+              onChangeText={(Valor) => handlerChangeText('usuDireccion', usuDireccion)}
               placeholder='Ingresar dirección'
             ></Input>
           </View>
@@ -60,7 +96,7 @@ const visCrearUsuario = (props) => {
                 borderRadius: 5,
               }}
               titleStyle={{ color: 'white', marginHorizontal: 20 }}
-              onPress={() => props.navigation.navigate("vistListaUsuario")}
+              onPress={() => guardarNuevoUsuario}
           />
 
         </Card>
