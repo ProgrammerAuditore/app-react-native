@@ -5,7 +5,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
-const settings = {timestampsInSnapshots: true};
+const settings = {timestampsInSnapshots: true, experimentalForceLongPolling: true};
 
 const config = {
     apiKey: "AIzaSyDH-rR1QIjet-tsDySoVarRQ4SHb54ww4k",

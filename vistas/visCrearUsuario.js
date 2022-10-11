@@ -2,34 +2,38 @@ import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { Card, Input, Text, Button, Icon, Alert } from '@rneui/base';
 import { useState } from 'react';
+import firebase from '../firebase';
 
 const visCrearUsuario = (props) => {
 
   const [state, setState] = useState({
-    usuDireccion: "",
-    usuId: "",
-    usuNombre: "",
-    usuTelefono: "",
+    usuId: "Default",
+    usuNombres: "Default",
+    usuApellidos: "Default",
+    usuEdad: "Default",
+    usuTelefono: "Default",
+    usuDireccion: "Default",
   });
 
-  const handlerChangeText = (usuNombre, value) => {
-    setState({...state, [usuNombre] : value});
+  const handlerChangeText = (usuNombres, value) => {
+    setState({ ...state, [usuNombres]: value });
+    console.log(state);
   }
-  
-  const guardarNuevoUsuario = async (usuNombre, value) => {
-    if(state.usuId === '' || state.usuNombre === ''){
-      alert('Favor de introducir todos los valores');
+
+  const guardarNuevoUsuario = async () => {
+    if (state.usuId === '' || state.usuNombres === '') {
+      alert('Ingrese el campo Id o Nombres');
     } else {
-      await Firebase.conexion 
-      .collection('usuarios')
-      .add(
-        {
+      await firebase.conexion
+        .collection('bdMonitoreo')
+        .add({
+          usuId: state.usuId,
+          usuNombres: state.usuNombres,
+          usuApellidos: state.usuApellidos,
+          usuEdad: state.usuEdad,
+          usuTelefono: state.usuTelefono,
           usuDireccion: state.usuDireccion,
-          usuId : state.usuId,
-          usuNombre : state.usuNombre,
-          usuTelefono : state.usuTelefono
-        }
-      );
+        });
       alert('Usuario creado exitosamente.');
       props.navigation.navigate('vistListaUsuario');
     }
@@ -38,9 +42,9 @@ const visCrearUsuario = (props) => {
   return (
     <ScrollView>
       <View>
-        <Button 
-        onPress={() => props.navigation.navigate("vistListaUsuario")}
-        type="solid">
+        <Button
+          onPress={() => props.navigation.navigate("vistListaUsuario")}
+          type="solid">
           Atras
           <Icon name="home" color="white" />
         </Button>
@@ -50,12 +54,30 @@ const visCrearUsuario = (props) => {
           <Card.Title>Crear usuario</Card.Title>
           <Card.Divider></Card.Divider>
 
-          {/* Campo: Nombre */}
+          {/* Campo: ID */}
           <View>
-            <Text>Nombre</Text>
+            <Text>ID</Text>
             <Input
-              onChangeText={(Valor) => handlerChangeText('usuNombre', Valor)}
-              placeholder='Ingresar nombre'
+              onChangeText={(Valor) => handlerChangeText('usuId', Valor)}
+              placeholder='Ingresar ID'
+            ></Input>
+          </View>
+
+          {/* Campo: Nombres */}
+          <View>
+            <Text>Nombres</Text>
+            <Input
+              onChangeText={(Valor) => handlerChangeText('usuNombres', Valor)}
+              placeholder='Ingresar nombres'
+            ></Input>
+          </View>
+
+          {/* Campo: Apellidos */}
+          <View>
+            <Text>Apellidos</Text>
+            <Input
+              onChangeText={(Valor) => handlerChangeText('usuApellidos', Valor)}
+              placeholder='Ingresar apellidos'
             ></Input>
           </View>
 
@@ -68,35 +90,34 @@ const visCrearUsuario = (props) => {
             ></Input>
           </View>
 
-          {/* Campo: Apellidos */}
+          {/* Campo: Telefono */}
           <View>
-
-            <Text>Apellidos</Text>
+            <Text>Telefono</Text>
             <Input
-              onChangeText={(Valor) => handlerChangeText('usuApellidos', Apellidos)}
-              placeholder='Ingresar apellidos'
+              onChangeText={(Valor) => handlerChangeText('usuTelefono', Valor)}
+              placeholder='Ingresar telefono'
             ></Input>
           </View>
 
-          {/* Campo: Dirección */}
+          {/* Campo: Direccion */}
           <View>
-            <Text>Dirección</Text>
+            <Text>Direccion</Text>
             <Input
-              onChangeText={(Valor) => handlerChangeText('usuDireccion', usuDireccion)}
-              placeholder='Ingresar dirección'
+              onChangeText={(Valor) => handlerChangeText('usuDireccion', Valor)}
+              placeholder='Ingresar telefono'
             ></Input>
           </View>
 
           {/* Botón : Crear usuario */}
           <Button
-              title="Crear usuario"
-              buttonStyle={{ backgroundColor: 'rgba(111, 202, 186, 1)' }}
-              containerStyle={{
-                marginVertical: 5,
-                borderRadius: 5,
-              }}
-              titleStyle={{ color: 'white', marginHorizontal: 20 }}
-              onPress={() => guardarNuevoUsuario}
+            title="Crear usuario"
+            buttonStyle={{ backgroundColor: 'rgba(111, 202, 186, 1)' }}
+            containerStyle={{
+              marginVertical: 5,
+              borderRadius: 5,
+            }}
+            titleStyle={{ color: 'white', marginHorizontal: 20 }}
+            onPress={() => guardarNuevoUsuario()}
           />
 
         </Card>
