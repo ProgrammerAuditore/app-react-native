@@ -29,6 +29,7 @@ const visDetalleUsuario = (props) => {
           if (documentSnapshot.exists) {
             setUser({
               ...user,
+              idFirestore: Id,
               usuId: documentSnapshot.data().usuId,
               usuNombres: documentSnapshot.data().usuNombres,
               usuApellidos: documentSnapshot.data().usuApellidos,
@@ -45,6 +46,30 @@ const visDetalleUsuario = (props) => {
     } catch (e) {
       alert(e);
     }
+  };
+
+  const mtdActualizarUsuario = async (id) => {
+    try {
+      await firebase.conexion
+      .collection('bdMonitoreo')
+      .doc(id)
+      .update({
+          usuId: user.usuId,
+          usuNombres: user.usuNombres,
+          usuApellidos: user.usuApellidos,
+          usuEdad: user.usuEdad,
+          usuTelefono: user.usuTelefono,
+          usuDireccion: user.usuDireccion,
+      })
+      .then(() => {
+            alert('Usuario Actualizado!');
+            props.navigation.navigate("visPrincipal");
+        });
+        //setUsers(users);
+      } catch (e) {
+        alert(e);
+      }
+      
   };
 
   useEffect(() => {
@@ -135,7 +160,7 @@ const visDetalleUsuario = (props) => {
               borderRadius: 5,
             }}
             titleStyle={{ color: 'white', marginHorizontal: 20 }}
-            onPress={() => props.navigation.navigate("vistListaUsuario")}
+            onPress={() => mtdActualizarUsuario(user.idFirestore)}
           />
 
           {/* Botón : Eliminar */}
