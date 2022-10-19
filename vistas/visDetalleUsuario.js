@@ -1,14 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { Card, Input, Text, Button, Icon } from '@rneui/base';
+import firebase from '../firebase';
 
 const visDetalleUsuario = (props) => {
+
+  const [user, setUser] = useState({
+    idFirestore: "",
+    usuId: "Default",
+    usuNombres: "Default",
+    usuApellidos: "Default",
+    usuEdad: "Default",
+    usuTelefono: "Default",
+    usuDireccion: "Default",
+  });
+
+  const handlerChangeText = (usuNombre, value) => {
+    setUser({ ...user, [usuNombre]: value })
+  }
+
+  const getUserById = async (Id) => {
+    try {
+      await firebase.conexion
+        .collection('bdMonitoreo')
+        .doc(Id)
+        .get()
+        .then((documentSnapshot) => {
+          if (documentSnapshot.exists) {
+            setUser({
+              ...user,
+              usuId: documentSnapshot.data().usuId,
+              usuNombres: documentSnapshot.data().usuNombres,
+              usuApellidos: documentSnapshot.data().usuApellidos,
+              usuEdad: documentSnapshot.data().usuEdad,
+              usuTelefono: documentSnapshot.data().usuTelefono,
+              usuDireccion: documentSnapshot.data().usuDireccion,
+            });
+          }
+        })
+        .catch(() => {
+          alert("Error")
+        });
+
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  useEffect(() => {
+    getUserById(props.route.params.paramId);
+  }, []);
+
   return (
     <ScrollView>
       <View>
-        <Button 
-        onPress={() => props.navigation.navigate("vistListaUsuario")}
-        type="solid">
+        <Button
+          onPress={() => props.navigation.navigate("vistListaUsuario")}
+          type="solid">
           Atras
           <Icon name="home" color="white" />
         </Button>
@@ -18,11 +66,33 @@ const visDetalleUsuario = (props) => {
           <Card.Title>Detalles del usuario</Card.Title>
           <Card.Divider></Card.Divider>
 
-          {/* Campo: Nombre */}
+          {/* Campo: ID */}
           <View>
-            <Text>Nombre</Text>
+            <Text>ID</Text>
             <Input
-              placeholder='Ingresar nombre'
+              placeholder='Ingresar ID'
+              value={user.usuId}
+              onChangeText={(Valor) => handlerChangeText('usuId', Valor)}
+            ></Input>
+          </View>
+
+          {/* Campo: Nombres */}
+          <View>
+            <Text>Nombres</Text>
+            <Input
+              value={user.usuNombres}
+              onChangeText={(Valor) => handlerChangeText('usuNombres', Valor)}
+              placeholder='Ingresar nombres'
+            ></Input>
+          </View>
+
+          {/* Campo: Apellidos */}
+          <View>
+            <Text>Apellidos</Text>
+            <Input
+              value={user.usuApellidos}
+              onChangeText={(Valor) => handlerChangeText('usuApellidos', Valor)}
+              placeholder='Ingresar apellidos'
             ></Input>
           </View>
 
@@ -30,50 +100,55 @@ const visDetalleUsuario = (props) => {
           <View>
             <Text>Edad</Text>
             <Input
+              value={user.usuEdad}
+              onChangeText={(Valor) => handlerChangeText('usuEdad', Valor)}
               placeholder='Ingresar edad'
             ></Input>
           </View>
 
-          {/* Campo: Apellidos */}
+          {/* Campo: Telefono */}
           <View>
-
-            <Text>Apellidos</Text>
+            <Text>Telefono</Text>
             <Input
-              placeholder='Ingresar apellidos'
+              value={user.usuTelefono}
+              onChangeText={(Valor) => handlerChangeText('usuTelefono', Valor)}
+              placeholder='Ingresar telefono'
             ></Input>
           </View>
 
-          {/* Campo: Dirección */}
+          {/* Campo: Direccion */}
           <View>
-            <Text>Dirección</Text>
+            <Text>Direccion</Text>
             <Input
-              placeholder='Ingresar dirección'
+              value={user.usuDireccion}
+              onChangeText={(Valor) => handlerChangeText('usuDireccion', Valor)}
+              placeholder='Ingresar telefono'
             ></Input>
           </View>
 
-          {/* Botón : Eliminar */}
+          {/* Botón : Actualizar */}
           <Button
-              title="Actualizar"
-              buttonStyle={{ backgroundColor: 'rgba(255, 193, 7, 1)' }}
-              containerStyle={{
-                marginVertical: 5,
-                borderRadius: 5,
-              }}
-              titleStyle={{ color: 'white', marginHorizontal: 20 }}
-              onPress={() => props.navigation.navigate("vistListaUsuario")}
-            />
+            title="Actualizar"
+            buttonStyle={{ backgroundColor: 'rgba(255, 193, 7, 1)' }}
+            containerStyle={{
+              marginVertical: 5,
+              borderRadius: 5,
+            }}
+            titleStyle={{ color: 'white', marginHorizontal: 20 }}
+            onPress={() => props.navigation.navigate("vistListaUsuario")}
+          />
 
           {/* Botón : Eliminar */}
           <Button
-              title="Eliminar"
-              buttonStyle={{ backgroundColor: 'rgba(214, 61, 57, 1)' }}
-              containerStyle={{
-                marginVertical: 5,
-                borderRadius: 5,
-              }}
-              titleStyle={{ color: 'white', marginHorizontal: 20 }}
-              onPress={() => props.navigation.navigate("vistListaUsuario")}
-            />
+            title="Eliminar"
+            buttonStyle={{ backgroundColor: 'rgba(214, 61, 57, 1)' }}
+            containerStyle={{
+              marginVertical: 5,
+              borderRadius: 5,
+            }}
+            titleStyle={{ color: 'white', marginHorizontal: 20 }}
+            onPress={() => props.navigation.navigate("vistListaUsuario")}
+          />
 
         </Card>
       </View>
