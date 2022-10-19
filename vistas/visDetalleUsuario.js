@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
+import { StyleSheet, ScrollView, View, Alert } from 'react-native';
 import { Card, Input, Text, Button, Icon } from '@rneui/base';
 import firebase from '../firebase';
 
@@ -51,25 +51,49 @@ const visDetalleUsuario = (props) => {
   const mtdActualizarUsuario = async (id) => {
     try {
       await firebase.conexion
-      .collection('bdMonitoreo')
-      .doc(id)
-      .update({
+        .collection('bdMonitoreo')
+        .doc(id)
+        .update({
           usuId: user.usuId,
           usuNombres: user.usuNombres,
           usuApellidos: user.usuApellidos,
           usuEdad: user.usuEdad,
           usuTelefono: user.usuTelefono,
           usuDireccion: user.usuDireccion,
-      })
-      .then(() => {
-            alert('Usuario Actualizado!');
-            props.navigation.navigate("visPrincipal");
+        })
+        .then(() => {
+          alert('Usuario Actualizado!');
+          props.navigation.navigate("visPrincipal");
         });
-        //setUsers(users);
-      } catch (e) {
-        alert(e);
-      }
-      
+      //setUsers(users);
+    } catch (e) {
+      alert(e);
+    }
+
+  };
+
+  const confirmarEliminacion = () => {
+    Alert.alert('Eliminando Usuario', '¿Está seguro que desea eliminar?',
+      [{ text: 'Si', onPress: () => mtdEliminarUsuario(user.idFirestore) },
+      { text: 'No', onPress: () => alert("Cancelado") }
+      ]);
+  }
+
+  const mtdEliminarUsuario = async (id) => {
+    try {
+      const users = [];
+      await firebase.conexion
+        .collection('bdMonitoreo')
+        .doc(id)
+        .delete()
+        .then(() => {
+          alert('Usuario Eliminado!');
+          props.navigation.navigate('visPrincipal');
+        });
+      //setUsers(users);
+    } catch (e) {
+      alert(e);
+    }
   };
 
   useEffect(() => {
@@ -172,7 +196,7 @@ const visDetalleUsuario = (props) => {
               borderRadius: 5,
             }}
             titleStyle={{ color: 'white', marginHorizontal: 20 }}
-            onPress={() => props.navigation.navigate("vistListaUsuario")}
+            onPress={() => confirmarEliminacion()}
           />
 
         </Card>
