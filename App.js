@@ -11,6 +11,8 @@ import visDetalleUsuario from './vistas/visDetalleUsuario';
 import vistListaUsuario from './vistas/vistListaUsuario';
 import visDistribucion from './vistas/visDistribucion';
 import MenuPrincipal from './vistas/MenuPrincipal';
+import visDatos from './vistas/visDatos';
+import visMapa from './vistas/visMapa';
 
 
 function MyStack(){
@@ -22,6 +24,8 @@ function MyStack(){
             <Stack.Screen name='vistListaUsuario' component={vistListaUsuario} options={{title:'App Maximo'}} />
             <Stack.Screen name='visDistribucion' component={visDistribucion} options={{title:'App Maximo'}} />
             <Stack.Screen name='MenuPrincipal' component={MenuPrincipal} options={{title:'App Maximo'}} />
+            <Stack.Screen name='visDatos' component={visDatos} options={{title:'App Maximo'}} />
+            <Stack.Screen name='visMapa' component={visMapa} options={{title:'App Maximo'}} />
         </Stack.Navigator>
     );
 }
