@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, View, StyleSheet, ScrollView } from 'react-native';
-import { Card, Input, Text, Button, Icon, Alert } from '@rneui/base';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Card, Input, Text, Button } from '@rneui/base';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import firebase from '../firebase';
@@ -15,14 +15,22 @@ const visDatos = (props) => {
 
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const fncGuardarDato = async () => {
-    await firebase.conexion
-      .collection('bdMonitoreo')
-      .add({
-        dataNombre: data.nombre,
-        dataLatitude: data.latitude,
-        dataLongitude: data.longitude
-      });
+  const fncRegistrarDatos = async () => {
+    console.log(data);
+    if (data.nombre.trim() === '' || data.nombre.trim().length == 0) {
+      alert("Escribe un nombre.");
+    } else {
+      await firebase.conexion
+        .collection('bdMonitoreo')
+        .add({
+          dataNombre: data.nombre,
+          dataLatitude: data.latitude,
+          dataLongitude: data.longitude
+        }).then((resp) => {
+          alert("Datos registrados exitosamente.");
+          props.navigation.navigate('visPrincipal');
+        });
+    }
   }
 
   const handlerChangeText = (key, value) => {
@@ -42,6 +50,7 @@ const visDatos = (props) => {
       // setData(location);
       let ubicacion = await Location.getCurrentPositionAsync({});
       setData({
+        nombre: "",
         latitude: ubicacion.coords.latitude,
         longitude: ubicacion.coords.longitude,
       });
@@ -64,29 +73,31 @@ const visDatos = (props) => {
 
           {/* Campo: Nombre */}
           <View>
-            <Text>ID</Text>
+            <Text>Nombre</Text>
             <Input
               onChangeText={(Valor) => handlerChangeText('nombre', Valor)}
-              placeholder='Ingresar ID'
+              placeholder='Ingresar nombre'
             ></Input>
           </View>
 
 
-          {/* Campo: latitude */}
+          {/* Campo: Latitude */}
           <View>
-            <Text>ID</Text>
+            <Text>Latitude</Text>
             <Input
+              disabled={true}
               value={String(data.latitude)}
-              placeholder='Ingresar ID'
+              placeholder='Ingresar latitude'
             ></Input>
           </View>
 
-          {/* Campo: longitude */}
+          {/* Campo: Longitude */}
           <View>
             <Text>Longitude</Text>
             <Input
+              disabled={true}
               value={String(data.longitude)}
-              placeholder='Ingresar ID'
+              placeholder='Ingresar longitude'
             ></Input>
           </View>
 
@@ -99,13 +110,13 @@ const visDatos = (props) => {
               borderRadius: 5,
             }}
             titleStyle={{ color: 'white', marginHorizontal: 20 }}
-            onPress={() => fncGuardarDato()}
+            onPress={() => fncRegistrarDatos()}
           />
 
           {/* Botón : Abrir Mapa */}
           <Button
             title="Abrir mapa"
-            buttonStyle={{ backgroundColor: 'rgba(111, 202, 186, 1)' }}
+            buttonStyle={{ backgroundColor: 'rgba(255, 193, 7, 1)' }}
             containerStyle={{
               marginVertical: 5,
               borderRadius: 5,
