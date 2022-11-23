@@ -20,8 +20,15 @@ firebase.initializeApp(config);
 
 firebase.firestore().settings(settings);
 
-const conexion = firebase.firestore()
+const conexion = firebase.firestore();
+
+const auth = firebase.auth();
+
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
 export default {
     firebase,
     conexion,
+    auth,
+    googleAuthProvider
 }

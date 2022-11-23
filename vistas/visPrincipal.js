@@ -28,6 +28,11 @@ const visPrincipal = (props) => {
         title="Mis Datos" 
         onPress={() => props.navigation.navigate('visDatos')} />
       </View>
+      <View>
+        <Button 
+        title="Login" 
+        onPress={() => props.navigation.navigate('visLogin')} />
+      </View>
     </ScrollView>
   );
 }

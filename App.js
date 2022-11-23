@@ -13,11 +13,13 @@ import visDistribucion from './vistas/visDistribucion';
 import MenuPrincipal from './vistas/MenuPrincipal';
 import visDatos from './vistas/visDatos';
 import visMapa from './vistas/visMapa';
+import visLogin from './vistas/visLogin';
 
 
 function MyStack(){
     return (
         <Stack.Navigator>
+            <Stack.Screen name='visLogin' component={visLogin} options={{title:'App Maximo'}} />
             <Stack.Screen name='visPrincipal' component={visPrincipal} options={{title:'App Maximo'}} />
             <Stack.Screen name='visDetalleUsuario' component={visDetalleUsuario} options={{title:'App Maximo'}} />
             <Stack.Screen name='visCrearUsuario' component={visCrearUsuario} options={{title:'App Maximo'}} />

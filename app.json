@@ -21,6 +21,7 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./android/app/google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -32,6 +33,7 @@
     },
     "packagerOpts": {
       "sourceExts": ["cjs"]
-    }
+    },
+    "plugins": ["@react-native-google-signin/google-signin"]
   }
 }
