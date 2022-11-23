@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
 import React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { Card, Input, Text, Button, Icon } from '@rneui/base';
 import firebase from '../firebase';
 const auth = firebase.auth;
 
@@ -10,35 +10,83 @@ const visPrincipal = (props) => {
     await auth.signOut().then(() => {
       { props.navigation.navigate("vistLogIn") }
     })
-    .catch(error => alert(error.message));
+      .catch(error => alert(error.message));
   }
 
   return (
     <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.innerText}>Hola mundo, desde react-native.</Text>
+      <View style={{ flex: 1, flexDirection: "column" }}>
+        <Card>
+          <Card.Title>Menú principal</Card.Title>
+          <Card.Divider></Card.Divider>
+
+          {/* Usuarios */}
+          <Button
+            title="Usuarios"
+            icon={{
+              name: 'caret-down',
+              type: 'font-awesome',
+              size: 45,
+              color: 'white',
+            }}
+            iconContainerStyle={{ marginRight: 10 }}
+            titleStyle={{ fontWeight: '700' }}
+            buttonStyle={{
+              backgroundColor: 'rgba(111, 202, 186, 1)',
+              borderColor: 'transparent',
+              borderWidth: 0,
+              borderRadius: 30,
+            }}
+            containerStyle={{
+              marginVertical: 5,
+              borderRadius: 5,
+            }}
+            onPress={() => props.navigation.navigate('vistListaUsuario')} 
+          />
+
+          {/* Usuarios */}
+          <Button
+            title="Monitoreo"
+            icon={{
+              name: 'caret-down',
+              type: 'font-awesome',
+              size: 45,
+              color: 'white',
+            }}
+            iconContainerStyle={{ marginRight: 10 }}
+            titleStyle={{ fontWeight: '700' }}
+            buttonStyle={{
+              backgroundColor: 'rgba(111, 202, 186, 1)',
+              borderColor: 'transparent',
+              borderWidth: 0,
+              borderRadius: 30,
+            }}
+            containerStyle={{
+              marginVertical: 5,
+              borderRadius: 5,
+            }}
+          />
+
+          {/*  Cerrar Sesión */}
+          <Button
+            buttonStyle={{
+              borderRadius: 30,
+              backgroundColor: 'red'
+            }}
+            containerStyle={{
+              marginVertical: 5,
+              borderRadius: 5,
+            }}
+            type="solid"
+            onPress={() => fncCerrarSesion()}
+          >
+            <Icon name="exit-to-app" color="white" />
+            Cerrar sesión
+          </Button>
+
+        </Card>
       </View>
-      <View>
-        <Button
-          title="Ir a vista distribucción"
-          onPress={() => props.navigation.navigate('visDistribucion')} />
-      </View>
-      <View>
-        <Button
-          title="Ir a vista usuario"
-          onPress={() => props.navigation.navigate('vistListaUsuario')} />
-      </View>
-      <View>
-        <Button
-          title="Crear usuario"
-          onPress={() => props.navigation.navigate('visCrearUsuario')} />
-      </View>
-      <View>
-        <Button
-          title="Cerrar sesion"
-          style={{ backgroundColor: 'rgba(255, 193, 7, 1)' }}
-          onPress={() => fncCerrarSesion()} />
-      </View>
+
     </ScrollView>
   );
 }
@@ -46,6 +94,9 @@ const visPrincipal = (props) => {
 export default visPrincipal;
 
 const styles = StyleSheet.create({
+  contentView: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: 'green',
