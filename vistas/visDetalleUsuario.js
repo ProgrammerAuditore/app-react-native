@@ -7,12 +7,9 @@ const visDetalleUsuario = (props) => {
 
   const [user, setUser] = useState({
     idFirestore: "",
-    usuId: "Default",
-    usuNombres: "Default",
-    usuApellidos: "Default",
-    usuEdad: "Default",
-    usuTelefono: "Default",
-    usuDireccion: "Default",
+    dataCorreo: "Default",
+    dataLongitude: "Default",
+    dataLatitude: "Default",
   });
 
   const handlerChangeText = (usuNombre, value) => {
@@ -30,12 +27,9 @@ const visDetalleUsuario = (props) => {
             setUser({
               ...user,
               idFirestore: Id,
-              usuId: documentSnapshot.data().usuId,
-              usuNombres: documentSnapshot.data().usuNombres,
-              usuApellidos: documentSnapshot.data().usuApellidos,
-              usuEdad: documentSnapshot.data().usuEdad,
-              usuTelefono: documentSnapshot.data().usuTelefono,
-              usuDireccion: documentSnapshot.data().usuDireccion,
+              dataCorreo: documentSnapshot.data().dataCorreo,
+              dataLatitude: documentSnapshot.data().dataLatitude,
+              dataLongitude: documentSnapshot.data().dataLongitude,
             });
           }
         })
@@ -54,12 +48,9 @@ const visDetalleUsuario = (props) => {
         .collection('bdMonitoreo')
         .doc(id)
         .update({
-          usuId: user.usuId,
-          usuNombres: user.usuNombres,
-          usuApellidos: user.usuApellidos,
-          usuEdad: user.usuEdad,
-          usuTelefono: user.usuTelefono,
-          usuDireccion: user.usuDireccion,
+          dataCorreo: user.dataCorreo,
+          dataLatitude: user.dataLatitude,
+          dataLongitude: user.dataLongitude,
         })
         .then(() => {
           alert('Usuario Actualizado!');
@@ -115,63 +106,33 @@ const visDetalleUsuario = (props) => {
           <Card.Title>Detalles del usuario</Card.Title>
           <Card.Divider></Card.Divider>
 
-          {/* Campo: ID */}
+          {/* Campo: Correo */}
           <View>
-            <Text>ID</Text>
+            <Text>Correo</Text>
             <Input
-              placeholder='Ingresar ID'
-              value={user.usuId}
-              onChangeText={(Valor) => handlerChangeText('usuId', Valor)}
+              value={user.dataCorreo}
+              onChangeText={(Valor) => handlerChangeText('dataCorreo', Valor)}
+              placeholder='Ingresar correo'
             ></Input>
           </View>
 
-          {/* Campo: Nombres */}
+          {/* Campo: Latitude */}
           <View>
-            <Text>Nombres</Text>
+            <Text>Latitude</Text>
             <Input
-              value={user.usuNombres}
-              onChangeText={(Valor) => handlerChangeText('usuNombres', Valor)}
-              placeholder='Ingresar nombres'
+              value={user.dataLatitude}
+              onChangeText={(Valor) => handlerChangeText('dataLatitude', Valor)}
+              placeholder='Ingresar latitude'
             ></Input>
           </View>
 
-          {/* Campo: Apellidos */}
+          {/* Campo: Longitude */}
           <View>
-            <Text>Apellidos</Text>
+            <Text>Longitude</Text>
             <Input
-              value={user.usuApellidos}
-              onChangeText={(Valor) => handlerChangeText('usuApellidos', Valor)}
-              placeholder='Ingresar apellidos'
-            ></Input>
-          </View>
-
-          {/* Campo: Edad */}
-          <View>
-            <Text>Edad</Text>
-            <Input
-              value={user.usuEdad}
-              onChangeText={(Valor) => handlerChangeText('usuEdad', Valor)}
-              placeholder='Ingresar edad'
-            ></Input>
-          </View>
-
-          {/* Campo: Telefono */}
-          <View>
-            <Text>Telefono</Text>
-            <Input
-              value={user.usuTelefono}
-              onChangeText={(Valor) => handlerChangeText('usuTelefono', Valor)}
-              placeholder='Ingresar telefono'
-            ></Input>
-          </View>
-
-          {/* Campo: Direccion */}
-          <View>
-            <Text>Direccion</Text>
-            <Input
-              value={user.usuDireccion}
-              onChangeText={(Valor) => handlerChangeText('usuDireccion', Valor)}
-              placeholder='Ingresar telefono'
+              value={user.dataLongitude}
+              onChangeText={(Valor) => handlerChangeText('dataLongitude', Valor)}
+              placeholder='Ingresar longitude'
             ></Input>
           </View>
 

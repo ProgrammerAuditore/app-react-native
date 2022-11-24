@@ -17,21 +17,15 @@ const vistListaUsuario = (props) => {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             const {
-              usuId,
-              usuNombres,
-              usuApellidos,
-              usuEdad,
-              usuDireccion,
-              usuTelefono,
+              dataLatitude,
+              dataLongitude,
+              dataCorreo,
             } = doc.data();
             users.push({
               id_firestore: doc.id,
-              usuId,
-              usuNombres,
-              usuApellidos,
-              usuEdad,
-              usuDireccion,
-              usuTelefono,
+              dataLatitude,
+              dataLongitude,
+              dataCorreo,
             });
           });
         });
@@ -47,45 +41,37 @@ const vistListaUsuario = (props) => {
 
   return (
     <ScrollView>
-      <Button size={"sm"} title="Crear usuario" onPress={() => props.navigation.navigate("visCrearUsuario")}></Button>
+      {/* <Button size={"sm"} title="Crear usuario" onPress={() => props.navigation.navigate("visCrearUsuario")}></Button> */}
+      <Button size={"sm"} title="Refresar" onPress={() => fetchPosts()}></Button>
       <View>
         {
           users.map((itemUsuario) => {
             return (
               <ListItem key={itemUsuario.id_firestore}
                 bottomDivider
-              // onPress= {()=> alert("Su Id es: "+itemUsuario.id)}
-              onPress= {()=> props.navigation.navigate('visDetalleUsuario', {
-                paramId: itemUsuario.id_firestore,
+                // onPress= {()=> alert("Su Id es: "+itemUsuario.id)}
+                onPress={() => props.navigation.navigate('visDetalleUsuario', {
+                  paramId: itemUsuario.id_firestore,
                 })
-              }
+                }
               >
                 <ListItem.Chevron />
                 <View>
-                <Avatar
-                  rounded title="usr"
-                  size="large"
-                  source={{
-                    uri: 'https://randomuser.me/api/portraits/men/36.jpg',
-                  }}
-                />
-                <Badge
-                  status="primary"
-                  value={itemUsuario.usuEdad}
-                  containerStyle={{ position: 'absolute', top: 5, left: 60 }}
-                />
+                  <Avatar
+                    rounded title="usr"
+                    size="large"
+                    source={{
+                      uri: 'https://randomuser.me/api/portraits/men/36.jpg',
+                    }}
+                  />
                 </View>
                 <ListItem.Content>
-                  <ListItem.Title>{itemUsuario.usuNombres} {itemUsuario.usuApellidos}</ListItem.Title>
-                  <ListItem.Subtitle>{itemUsuario.usuId}</ListItem.Subtitle>
-                  <ListItem.Subtitle>{itemUsuario.usuDireccion}</ListItem.Subtitle>
-                  <Text>{itemUsuario.usuTelefono}</Text>
-
+                  <ListItem.Title>{itemUsuario.dataCorreo}</ListItem.Title>
+                  <ListItem.Subtitle>{itemUsuario.dataLatitude}</ListItem.Subtitle>
+                  <ListItem.Subtitle>{itemUsuario.dataLongitude}</ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
-
             );
-
           })
         }
       </View>
