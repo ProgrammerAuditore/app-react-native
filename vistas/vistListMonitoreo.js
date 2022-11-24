@@ -17,14 +17,14 @@ const vistMonitoreo = (props) => {
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         const {
-                            dataLatitude,
                             dataLongitude,
+                            dataLatitude,
                             dataCorreo,
                         } = doc.data();
                         users.push({
                             id_firestore: doc.id,
-                            dataLatitude,
                             dataLongitude,
+                            dataLatitude,
                             dataCorreo,
                         });
                     });
@@ -51,8 +51,8 @@ const vistMonitoreo = (props) => {
                                 bottomDivider
                                 // onPress= {()=> alert("Su Id es: "+itemUsuario.id)}
                                 onPress={() => props.navigation.navigate('visMapa', {
+                                    longitude: parseFloat(itemUsuario.dataLongitude),
                                     latitude: parseFloat(itemUsuario.dataLatitude),
-                                    longitude: parseFloat(itemUsuario.dataLongitude)
                                 })
                                 }
                             >
@@ -68,8 +68,8 @@ const vistMonitoreo = (props) => {
                                 </View>
                                 <ListItem.Content>
                                     <ListItem.Title>{itemUsuario.dataCorreo}</ListItem.Title>
-                                    <ListItem.Subtitle>Latitude : {itemUsuario.dataLatitude}</ListItem.Subtitle>
                                     <ListItem.Subtitle>Longitude : {itemUsuario.dataLongitude}</ListItem.Subtitle>
+                                    <ListItem.Subtitle>Latitude : {itemUsuario.dataLatitude}</ListItem.Subtitle>
                                 </ListItem.Content>
                             </ListItem>
                         );

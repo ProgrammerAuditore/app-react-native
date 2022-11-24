@@ -28,8 +28,8 @@ const visDetalleUsuario = (props) => {
               ...user,
               idFirestore: Id,
               dataCorreo: documentSnapshot.data().dataCorreo,
-              dataLatitude: documentSnapshot.data().dataLatitude,
               dataLongitude: documentSnapshot.data().dataLongitude,
+              dataLatitude: documentSnapshot.data().dataLatitude,
             });
           }
         })
@@ -49,8 +49,8 @@ const visDetalleUsuario = (props) => {
         .doc(id)
         .update({
           dataCorreo: user.dataCorreo,
-          dataLatitude: user.dataLatitude,
           dataLongitude: user.dataLongitude,
+          dataLatitude: user.dataLatitude,
         })
         .then(() => {
           alert('Usuario Actualizado!');
@@ -116,16 +116,6 @@ const visDetalleUsuario = (props) => {
             ></Input>
           </View>
 
-          {/* Campo: Latitude */}
-          <View>
-            <Text>Latitude</Text>
-            <Input
-              value={user.dataLatitude}
-              onChangeText={(Valor) => handlerChangeText('dataLatitude', Valor)}
-              placeholder='Ingresar latitude'
-            ></Input>
-          </View>
-
           {/* Campo: Longitude */}
           <View>
             <Text>Longitude</Text>
@@ -133,6 +123,16 @@ const visDetalleUsuario = (props) => {
               value={user.dataLongitude}
               onChangeText={(Valor) => handlerChangeText('dataLongitude', Valor)}
               placeholder='Ingresar longitude'
+            ></Input>
+          </View>
+
+          {/* Campo: Latitude */}
+          <View>
+            <Text>Latitude</Text>
+            <Input
+              value={user.dataLatitude}
+              onChangeText={(Valor) => handlerChangeText('dataLatitude', Valor)}
+              placeholder='Ingresar latitude'
             ></Input>
           </View>
 
