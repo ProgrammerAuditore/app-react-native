@@ -67,8 +67,8 @@ const vistListaUsuario = (props) => {
                 </View>
                 <ListItem.Content>
                   <ListItem.Title>{itemUsuario.dataCorreo}</ListItem.Title>
-                  <ListItem.Subtitle>{itemUsuario.dataLatitude}</ListItem.Subtitle>
-                  <ListItem.Subtitle>{itemUsuario.dataLongitude}</ListItem.Subtitle>
+                  <ListItem.Subtitle>Latitude : {itemUsuario.dataLatitude}</ListItem.Subtitle>
+                  <ListItem.Subtitle>Longitude : {itemUsuario.dataLongitude}</ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
             );
