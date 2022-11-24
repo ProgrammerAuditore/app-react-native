@@ -51,8 +51,8 @@ const vistMonitoreo = (props) => {
                                 bottomDivider
                                 // onPress= {()=> alert("Su Id es: "+itemUsuario.id)}
                                 onPress={() => props.navigation.navigate('visMapa', {
-                                    longitude: parseFloat(itemUsuario.dataLongitude),
-                                    latitude: parseFloat(itemUsuario.dataLatitude),
+                                    longitude: itemUsuario.dataLongitude,
+                                    latitude: itemUsuario.dataLatitude,
                                 })
                                 }
                             >
