@@ -44,7 +44,7 @@ const visPrincipal = (props) => {
             onPress={() => props.navigation.navigate('vistListaUsuario')} 
           />
 
-          {/* Usuarios */}
+          {/* Monitoreo */}
           <Button
             title="Monitoreo"
             icon={{
@@ -65,6 +65,7 @@ const visPrincipal = (props) => {
               marginVertical: 5,
               borderRadius: 5,
             }}
+            onPress={() => props.navigation.navigate('vistListMonitoreo')} 
           />
 
           {/*  Cerrar Sesión */}

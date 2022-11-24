@@ -13,8 +13,8 @@ import visDistribucion from './vistas/visDistribucion';
 import MenuPrincipal from './vistas/MenuPrincipal';
 import visDatos from './vistas/visDatos';
 import visMapa from './vistas/visMapa';
-import visLogin from './vistas/visLogin';
 import vistLogIn from './vistas/vistLogIn';
+import vistListMonitoreo from './vistas/vistListMonitoreo';
 
 
 function MyStack(){
@@ -29,6 +29,7 @@ function MyStack(){
             <Stack.Screen name='MenuPrincipal' component={MenuPrincipal} options={{title:'App Administrador'}} />
             <Stack.Screen name='visDatos' component={visDatos} options={{title:'App Administrador'}} />
             <Stack.Screen name='visMapa' component={visMapa} options={{title:'App Administrador'}} />
+            <Stack.Screen name='vistListMonitoreo' component={vistListMonitoreo} options={{title:'App Administrador'}} />
         </Stack.Navigator>
     );
 }
