@@ -27,6 +27,7 @@ const visDetalleUsuario = (props) => {
             setUser({
               ...user,
               idFirestore: Id,
+              dataNombre: documentSnapshot.data().dataNombre,
               dataCorreo: documentSnapshot.data().dataCorreo,
               dataLongitude: documentSnapshot.data().dataLongitude,
               dataLatitude: documentSnapshot.data().dataLatitude,
@@ -48,6 +49,7 @@ const visDetalleUsuario = (props) => {
         .collection('bdMonitoreo')
         .doc(id)
         .update({
+          dataNombre: user.dataNombre,
           dataCorreo: user.dataCorreo,
           dataLongitude: user.dataLongitude,
           dataLatitude: user.dataLatitude,
@@ -98,34 +100,40 @@ const visDetalleUsuario = (props) => {
           <Card.Title>Detalles del usuario</Card.Title>
           <Card.Divider></Card.Divider>
 
+          {/* Campo: Nombre */}
+          <View>
+            <Text>Nombre</Text>
+            <Input
+              onChangeText={(Valor) => handlerChangeText('dataNombre', Valor)}
+              placeholder='Ingresar nombre'
+            >{user.dataNombre}</Input>
+          </View>
+
           {/* Campo: Correo */}
           <View>
             <Text>Correo</Text>
             <Input
-              value={user.dataCorreo}
               onChangeText={(Valor) => handlerChangeText('dataCorreo', Valor)}
               placeholder='Ingresar correo'
-            ></Input>
+            >{user.dataCorreo}</Input>
           </View>
 
           {/* Campo: Longitude */}
           <View>
             <Text>Longitude</Text>
             <Input
-              value={user.dataLongitude}
               onChangeText={(Valor) => handlerChangeText('dataLongitude', Valor)}
               placeholder='Ingresar longitude'
-            ></Input>
+            >{user.dataLongitude}</Input>
           </View>
 
           {/* Campo: Latitude */}
           <View>
             <Text>Latitude</Text>
             <Input
-              value={user.dataLatitude}
               onChangeText={(Valor) => handlerChangeText('dataLatitude', Valor)}
               placeholder='Ingresar latitude'
-            ></Input>
+            >{user.dataLatitude}</Input>
           </View>
 
           {/* Botón : Actualizar */}
