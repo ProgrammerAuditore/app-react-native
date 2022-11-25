@@ -68,6 +68,30 @@ const visPrincipal = (props) => {
             onPress={() => props.navigation.navigate('vistListMonitoreo')} 
           />
 
+          {/* Mensajes */}
+          <Button
+            title="Mensajeria"
+            icon={{
+              name: 'caret-down',
+              type: 'font-awesome',
+              size: 45,
+              color: 'white',
+            }}
+            iconContainerStyle={{ marginRight: 10 }}
+            titleStyle={{ fontWeight: '700' }}
+            buttonStyle={{
+              backgroundColor: 'rgba(111, 202, 186, 1)',
+              borderColor: 'transparent',
+              borderWidth: 0,
+              borderRadius: 30,
+            }}
+            containerStyle={{
+              marginVertical: 5,
+              borderRadius: 5,
+            }}
+            onPress={() => props.navigation.navigate('visCrearMensaje')} 
+          />
+
           {/*  Cerrar Sesión */}
           <Button
             buttonStyle={{
