@@ -18,7 +18,9 @@ import vistListMonitoreo from './vistas/vistListMonitoreo';
 
 function MyStack() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            initialRouteName='visPrincipal'
+        >
             <Stack.Screen name='vistLogIn' component={vistLogIn}
                 options={{ title: 'App Administrador' }} />
             <Stack.Screen name='visPrincipal' component={visPrincipal}

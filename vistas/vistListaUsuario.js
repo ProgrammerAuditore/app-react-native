@@ -42,7 +42,20 @@ const vistListaUsuario = (props) => {
   return (
     <ScrollView>
       {/* <Button size={"sm"} title="Crear usuario" onPress={() => props.navigation.navigate("visCrearUsuario")}></Button> */}
-      <Button size={"sm"} title="Refresar" onPress={() => fetchPosts()}></Button>
+      <Button
+        title="Refresar"
+        icon={{
+          name: 'refresh',
+          size: 24,
+          color: 'white',
+        }}
+        iconContainerStyle={{ marginRight: 10 }}
+        titleStyle={{ fontWeight: '700' }}
+        buttonStyle={{
+          backgroundColor: 'rgba(0, 102, 132, 1)',
+          borderColor: 'transparent',
+        }}
+        onPress={() => fetchPosts()} />
       <View>
         {
           users.map((itemUsuario) => {
