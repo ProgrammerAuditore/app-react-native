@@ -1,10 +1,10 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import { ListItem, Avatar, Button, Text, Badge, Icon, withBadge } from "@rneui/themed";
+import { ListItem, Avatar, Card, Input, Text, Button, Badge, Icon, withBadge } from "@rneui/themed";
 import firebase from '../firebase';
 
-const vistListaUsuario = (props) => {
+const vistListarMensajes = (props) => {
 
   const [users, setUsers] = useState([]);
 
@@ -12,19 +12,19 @@ const vistListaUsuario = (props) => {
     try {
       const users = [];
       await firebase.conexion
-        .collection('bdMonitoreo')
+        .collection('clMensajes')
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             const {
-              dataLongitude,
-              dataLatitude,
+              dataMensaje,
+              dataNombre,
               dataCorreo,
             } = doc.data();
             users.push({
               id_firestore: doc.id,
-              dataLongitude,
-              dataLatitude,
+              dataMensaje,
+              dataNombre,
               dataCorreo,
             });
           });
@@ -40,7 +40,7 @@ const vistListaUsuario = (props) => {
     let vista = '';
     switch (btn) {
       case 'btnUsuarios': vista = "visDetalleUsuario"; break;
-      case 'btnMensajeria': vista = "vistListarMensajes"; break;
+      case 'btnMensajeria': vista = "visCrearMensaje"; break;
     }
     props.navigation.navigate(vista, { paramId: snapshot.id_firestore });
   }
@@ -66,39 +66,45 @@ const vistListaUsuario = (props) => {
           borderColor: 'transparent',
         }}
         onPress={() => fetchPosts()} />
-      <View>
-        {
+      <View style={{ flex: 1, flexDirection: "column" }}>
+      {
           users.map((itemUsuario) => {
             return (
-              <ListItem key={itemUsuario.id_firestore}
-                bottomDivider
-                onPress={() => fncIrA(itemUsuario)}
-              >
-                <ListItem.Chevron />
-                <View>
-                  <Avatar
-                    rounded title="usr"
-                    size="large"
-                    source={{
-                      uri: 'https://randomuser.me/api/portraits/men/36.jpg',
-                    }}
-                  />
-                </View>
-                <ListItem.Content>
-                  <ListItem.Title>{itemUsuario.dataCorreo}</ListItem.Title>
-                  <ListItem.Subtitle>Longitude : {itemUsuario.dataLongitude}</ListItem.Subtitle>
-                  <ListItem.Subtitle>Latitude : {itemUsuario.dataLatitude}</ListItem.Subtitle>
-                </ListItem.Content>
-              </ListItem>
+              <Card>
+          <Card.Title>{ itemUsuario.dataCorreo }</Card.Title>
+          <Card.Divider></Card.Divider>
+          {/* Campo: Detalle usuario */}
+          <View>
+            <ListItem>
+              <View>
+                <Avatar
+                  rounded title="usr"
+                  size="large"
+                  source={{
+                    uri: 'https://randomuser.me/api/portraits/men/36.jpg',
+                  }}
+                />
+              </View>
+              <ListItem.Content>
+                <ListItem.Subtitle>{itemUsuario.dataNombre}</ListItem.Subtitle>
+                <ListItem.Subtitle>{itemUsuario.dataMensaje}</ListItem.Subtitle>
+              </ListItem.Content>
+            </ListItem>
+          </View>
+        </Card>
             );
           })
         }
+        
+      </View>
+      <View>
+        
       </View>
     </ScrollView>
   )
 }
 
-export default vistListaUsuario;
+export default vistListarMensajes;
 
 const styles = StyleSheet.create({
 

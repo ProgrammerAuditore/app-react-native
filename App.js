@@ -16,6 +16,7 @@ import visMapa from './vistas/visMapa';
 import vistLogIn from './vistas/vistLogIn';
 import vistListMonitoreo from './vistas/vistListMonitoreo';
 import visCrearMensaje from './vistas/visCrearMensaje';
+import vistListarMensajes from './vistas/vistListarMensajes';
 
 function MyStack() {
     return (
@@ -43,6 +44,8 @@ function MyStack() {
             <Stack.Screen name='vistListMonitoreo' component={vistListMonitoreo}
                 options={{ title: 'App Administrador' }} />
             <Stack.Screen name='visCrearMensaje' component={visCrearMensaje}
+                options={{ title: 'App Administrador' }} />
+            <Stack.Screen name='vistListarMensajes' component={vistListarMensajes}
                 options={{ title: 'App Administrador' }} />
         </Stack.Navigator>
     );
