@@ -43,7 +43,7 @@ const vistMonitoreo = (props) => {
         <ScrollView>
             {/* <Button size={"sm"} title="Crear usuario" onPress={() => props.navigation.navigate("visCrearUsuario")}></Button> */}
             <Button
-                title="Refresar"
+                title="Refrescar"
                 icon={{
                     name: 'refresh',
                     size: 24,

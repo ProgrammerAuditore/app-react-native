@@ -40,7 +40,7 @@ const vistListaUsuario = (props) => {
     let vista = '';
     switch (btn) {
       case 'btnUsuarios': vista = "visDetalleUsuario"; break;
-      case 'btnMensajeria': vista = "vistListarMensajes"; break;
+      case 'btnMensajeria': vista = "visCrearMensaje"; break;
     }
     props.navigation.navigate(vista, { paramId: snapshot.id_firestore });
   }
@@ -53,7 +53,7 @@ const vistListaUsuario = (props) => {
     <ScrollView>
       {/* <Button size={"sm"} title="Crear usuario" onPress={() => props.navigation.navigate("visCrearUsuario")}></Button> */}
       <Button
-        title="Refresar"
+        title="Refrescar"
         icon={{
           name: 'refresh',
           size: 24,
