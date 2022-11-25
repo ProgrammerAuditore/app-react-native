@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { Card, Input, Text, Button, Icon, Alert } from '@rneui/base';
-import { useState } from 'react';
 import firebase from '../firebase';
 
 const visCrearMensaje = (props) => {
@@ -33,19 +32,50 @@ const visCrearMensaje = (props) => {
     }
   }
 
+  const getUserById = async (Id) => {
+    try {
+      await firebase.conexion
+        .collection('bdMonitoreo')
+        .doc(Id)
+        .get()
+        .then((documentSnapshot) => {
+          if (documentSnapshot.exists) {
+            setState({
+              ...state,
+              idDocumento: Id,
+              dataCorreo: documentSnapshot.data().dataCorreo,
+              dataNombre: documentSnapshot.data().dataNombre,
+            });
+          }
+        })
+        .catch(() => {
+          alert("Error")
+        });
+
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  useEffect(() => {
+    getUserById(props.route.params.paramId);
+  }, []);
+
   return (
     <ScrollView>
       <View style={{ flex: 1, flexDirection: "column" }}>
         <Card>
-          <Card.Title>Crear usuario</Card.Title>
+          <Card.Title>Mensajeria</Card.Title>
           <Card.Divider></Card.Divider>
 
           {/* Campo: Nombre */}
           <View>
             <Text>Nombre</Text>
             <Input
+              value={state.dataNombre}
               onChangeText={(Valor) => handlerChangeText('dataNombre', Valor)}
               placeholder='Ingresar nombre'
+              disabled
             ></Input>
           </View>
 
@@ -53,8 +83,10 @@ const visCrearMensaje = (props) => {
           <View>
             <Text>Correo</Text>
             <Input
+              value={state.dataCorreo}
               onChangeText={(Valor) => handlerChangeText('dataCorreo', Valor)}
               placeholder='Ingresar correo'
+              disabled
             ></Input>
           </View>
 
@@ -62,6 +94,9 @@ const visCrearMensaje = (props) => {
           <View>
             <Text>Mensaje</Text>
             <Input
+              multiline={true}
+              numberOfLines={7}
+              style={{ height: 200, textAlignVertical: 'top', marginTop: 10 }}
               onChangeText={(Valor) => handlerChangeText('dataMensaje', Valor)}
               placeholder='Ingresar mensaje'
             ></Input>
