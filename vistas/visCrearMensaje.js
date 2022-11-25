@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Card, Input, Text, Button, Icon, Alert } from '@rneui/base';
+import { Card, Input, Text, Button, Icon, Alert, ListItem, Avatar } from '@rneui/base';
 import firebase from '../firebase';
 
 const visCrearMensaje = (props) => {
@@ -68,34 +68,31 @@ const visCrearMensaje = (props) => {
           <Card.Title>Mensajeria</Card.Title>
           <Card.Divider></Card.Divider>
 
-          {/* Campo: Nombre */}
+          {/* Campo: Detalle usuario */}
           <View>
-            <Text>Nombre</Text>
-            <Input
-              value={state.dataNombre}
-              onChangeText={(Valor) => handlerChangeText('dataNombre', Valor)}
-              placeholder='Ingresar nombre'
-              disabled
-            ></Input>
-          </View>
-
-          {/* Campo: Correo */}
-          <View>
-            <Text>Correo</Text>
-            <Input
-              value={state.dataCorreo}
-              onChangeText={(Valor) => handlerChangeText('dataCorreo', Valor)}
-              placeholder='Ingresar correo'
-              disabled
-            ></Input>
+            <ListItem>
+              <View>
+                <Avatar
+                  rounded title="usr"
+                  size="large"
+                  source={{
+                    uri: 'https://randomuser.me/api/portraits/men/36.jpg',
+                  }}
+                />
+              </View>
+              <ListItem.Content>
+                {/* <ListItem.Title>{itemUsuario.dataCorreo}</ListItem.Title> */}
+                <ListItem.Subtitle>{state.dataCorreo}</ListItem.Subtitle>
+                <ListItem.Subtitle>{state.dataNombre}</ListItem.Subtitle>
+              </ListItem.Content>
+            </ListItem>
           </View>
 
           {/* Campo: Mensaje */}
           <View>
-            <Text>Mensaje</Text>
+            <Text style={{ fontWeight: '700' }} >Mensaje</Text>
             <Input
               multiline={true}
-              numberOfLines={7}
               style={{ height: 200, textAlignVertical: 'top', marginTop: 10 }}
               onChangeText={(Valor) => handlerChangeText('dataMensaje', Valor)}
               placeholder='Ingresar mensaje'
