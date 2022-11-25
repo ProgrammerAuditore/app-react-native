@@ -35,6 +35,16 @@ const vistListaUsuario = (props) => {
     }
   };
 
+  const fncIrA = (snapshot) => {
+    const btn = props.route.params.boton;
+    let vista = '';
+    switch (btn) {
+      case 'btnUsuarios': vista = "visDetalleUsuario"; break;
+      case 'btnMensajeria': vista = "visCrearMensaje"; break;
+    }
+    props.navigation.navigate(vista, { paramId: snapshot.id_firestore });
+  }
+
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -62,11 +72,7 @@ const vistListaUsuario = (props) => {
             return (
               <ListItem key={itemUsuario.id_firestore}
                 bottomDivider
-                // onPress= {()=> alert("Su Id es: "+itemUsuario.id)}
-                onPress={() => props.navigation.navigate('visDetalleUsuario', {
-                  paramId: itemUsuario.id_firestore,
-                })
-                }
+                onPress={() => fncIrA(itemUsuario)}
               >
                 <ListItem.Chevron />
                 <View>

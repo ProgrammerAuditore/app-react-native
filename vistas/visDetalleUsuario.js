@@ -93,14 +93,6 @@ const visDetalleUsuario = (props) => {
 
   return (
     <ScrollView>
-      <View>
-        <Button
-          onPress={() => props.navigation.navigate("vistListaUsuario")}
-          type="solid">
-          Atras
-          <Icon name="home" color="white" />
-        </Button>
-      </View>
       <View style={{ flex: 1, flexDirection: "column" }}>
         <Card>
           <Card.Title>Detalles del usuario</Card.Title>

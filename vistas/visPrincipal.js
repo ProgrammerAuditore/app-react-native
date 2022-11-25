@@ -41,7 +41,7 @@ const visPrincipal = (props) => {
               marginVertical: 5,
               borderRadius: 5,
             }}
-            onPress={() => props.navigation.navigate('vistListaUsuario')} 
+            onPress={() => props.navigation.navigate('vistListaUsuario', {boton: 'btnUsuarios'})} 
           />
 
           {/* Monitoreo */}
@@ -89,7 +89,7 @@ const visPrincipal = (props) => {
               marginVertical: 5,
               borderRadius: 5,
             }}
-            onPress={() => props.navigation.navigate('visCrearMensaje')} 
+            onPress={() => props.navigation.navigate('vistListaUsuario', {boton: 'btnMensajeria'})} 
           />
 
           {/*  Cerrar Sesión */}
