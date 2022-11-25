@@ -67,38 +67,38 @@ const vistListarMensajes = (props) => {
         }}
         onPress={() => fetchPosts()} />
       <View style={{ flex: 1, flexDirection: "column" }}>
-      {
+        {
           users.map((itemUsuario) => {
             return (
-              <Card>
-          <Card.Title>{ itemUsuario.dataCorreo }</Card.Title>
-          <Card.Divider></Card.Divider>
-          {/* Campo: Detalle usuario */}
-          <View>
-            <ListItem>
-              <View>
-                <Avatar
-                  rounded title="usr"
-                  size="large"
-                  source={{
-                    uri: 'https://randomuser.me/api/portraits/men/36.jpg',
-                  }}
-                />
-              </View>
-              <ListItem.Content>
-                <ListItem.Subtitle>{itemUsuario.dataNombre}</ListItem.Subtitle>
-                <ListItem.Subtitle>{itemUsuario.dataMensaje}</ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-          </View>
-        </Card>
+              <Card key={itemUsuario.id_firestore}>
+                <Card.Title>{itemUsuario.dataCorreo}</Card.Title>
+                <Card.Divider></Card.Divider>
+                {/* Campo: Detalle usuario */}
+                <View>
+                  <ListItem>
+                    <View>
+                      <Avatar
+                        rounded title="usr"
+                        size="large"
+                        source={{
+                          uri: 'https://randomuser.me/api/portraits/men/36.jpg',
+                        }}
+                      />
+                    </View>
+                    <ListItem.Content>
+                      <ListItem.Subtitle>{itemUsuario.dataNombre}</ListItem.Subtitle>
+                      <ListItem.Subtitle>{itemUsuario.dataMensaje}</ListItem.Subtitle>
+                    </ListItem.Content>
+                  </ListItem>
+                </View>
+              </Card>
             );
           })
         }
-        
+
       </View>
       <View>
-        
+
       </View>
     </ScrollView>
   )

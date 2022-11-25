@@ -89,7 +89,7 @@ const visPrincipal = (props) => {
               marginVertical: 5,
               borderRadius: 5,
             }}
-            onPress={() => props.navigation.navigate('vistListaUsuario', {boton: 'btnMensajeria'})} 
+            onPress={() => props.navigation.navigate('vistListaMensajeria')}
           />
 
           {/*  Cerrar Sesión */}
