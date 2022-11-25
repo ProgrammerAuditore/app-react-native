@@ -16,24 +16,29 @@ import visMapa from './vistas/visMapa';
 import vistLogIn from './vistas/vistLogIn';
 import vistListMonitoreo from './vistas/vistListMonitoreo';
 
-
 function MyStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name='vistLogIn' component={vistLogIn} options={{ title: 'App Administrador' }} />
-            <Stack.Screen name='visPrincipal' component={visPrincipal} 
-            options={{
-                headerLeft: ()=> null,
-                title: 'App Administrador'
-            }}  />
-            <Stack.Screen name='visDetalleUsuario' component={visDetalleUsuario} options={{ title: 'App Administrador' }} />
-            <Stack.Screen name='visCrearUsuario' component={visCrearUsuario} options={{ title: 'App Administrador' }} />
-            <Stack.Screen name='vistListaUsuario' component={vistListaUsuario} options={{ title: 'App Administrador' }} />
-            <Stack.Screen name='visDistribucion' component={visDistribucion} options={{ title: 'App Administrador' }} />
-            <Stack.Screen name='MenuPrincipal' component={MenuPrincipal} />
-            <Stack.Screen name='visDatos' component={visDatos} options={{ title: 'App Administrador' }} />
-            <Stack.Screen name='visMapa' component={visMapa} options={{ title: 'App Administrador' }} />
-            <Stack.Screen name='vistListMonitoreo' component={vistListMonitoreo} options={{ title: 'App Administrador' }} />
+            <Stack.Screen name='vistLogIn' component={vistLogIn}
+                options={{ title: 'App Administrador' }} />
+            <Stack.Screen name='visPrincipal' component={visPrincipal}
+                options={{ headerLeft: () => null, title: 'App Administrador' }} />
+            <Stack.Screen name='visDetalleUsuario' component={visDetalleUsuario}
+                options={{ title: 'App Administrador' }} />
+            <Stack.Screen name='visCrearUsuario' component={visCrearUsuario}
+                options={{ title: 'App Administrador' }} />
+            <Stack.Screen name='vistListaUsuario' component={vistListaUsuario}
+                options={{ title: 'App Administrador' }} />
+            <Stack.Screen name='visDistribucion' component={visDistribucion}
+                options={{ title: 'App Administrador' }} />
+            <Stack.Screen name='MenuPrincipal' component={MenuPrincipal}
+                options={{ title: 'App Administrador' }} />
+            <Stack.Screen name='visDatos' component={visDatos}
+                options={{ title: 'App Administrador' }} />
+            <Stack.Screen name='visMapa' component={visMapa}
+                options={{ title: 'App Administrador' }} />
+            <Stack.Screen name='vistListMonitoreo' component={vistListMonitoreo}
+                options={{ title: 'App Administrador' }} />
         </Stack.Navigator>
     );
 }
