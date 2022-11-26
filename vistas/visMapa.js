@@ -50,16 +50,16 @@ const visMapa = (props) => {
         title="Administrador"
         description="Soy el administrador"
         coordinate={{
-          latitude: parseFloat(coordenadas.latitude),
-          longitude: parseFloat(coordenadas.longitude)
+          latitude: parseFloat(coordenadas.latitude.toString()),
+          longitude: parseFloat(coordenadas.longitude.toString())
         }}>
       </Marker>
       <Marker
         title="Cliente"
         description="Boris"
         coordinate={{
-          latitude: parseFloat(props.route.params.latitude),
-          longitude: parseFloat(props.route.params.longitude)
+          latitude: parseFloat(coordenadas.latitudeCliente.toString()),
+          longitude: parseFloat(coordenadas.longitudeCliente.toString())
         }}></Marker>
     </MapView>
   );
