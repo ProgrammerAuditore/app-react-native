@@ -8,7 +8,7 @@ import MapView, { Marker } from "react-native-maps";
 
 const visMapa = (props) => {
 
-  const [ubicacionCliente, setUbicacionCliente] = useState({
+  const [coordenadas, setCoordenadas] = useState({
     longitudeCliente: props.route.params.longitude,
     latitudeCliente: props.route.params.latitude,
     longitude: 0.01,
@@ -29,8 +29,8 @@ const visMapa = (props) => {
       // let location = await Location.getCurrentPositionAsync({});
       // setData(location);
       let ubicacion = await Location.getCurrentPositionAsync({});
-      setUbicacionCliente({
-        ...ubicacionCliente,
+      setCoordenadas({
+        ...coordenadas,
         longitudeCliente: props.route.params.longitude,
         latitudeCliente: props.route.params.latitude,
         latitude: ubicacion.coords.latitude,
@@ -42,16 +42,16 @@ const visMapa = (props) => {
   return (
     <MapView
       style={{ flex: 1 }}
-      initialRegion={ubicacionCliente}
-      region={ubicacionCliente}
-      //onRegionChangeComplete={ubicacionCliente => setUbicacionCliente(ubicacionCliente)}
+      initialRegion={coordenadas}
+      region={coordenadas}
+      //onRegionChangeComplete={coordenadas => setCoordenadas(coordenadas)}
     >
       <Marker
         title="Administrador"
         description="Soy el administrador"
         coordinate={{
-          latitude: parseFloat(ubicacionCliente.latitude),
-          longitude: parseFloat(ubicacionCliente.longitude)
+          latitude: parseFloat(coordenadas.latitude),
+          longitude: parseFloat(coordenadas.longitude)
         }}>
       </Marker>
       <Marker
