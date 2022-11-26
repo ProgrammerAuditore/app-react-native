@@ -42,8 +42,8 @@ const visMapa = (props) => {
   return (
     <MapView
       style={{ flex: 1 }}
-      initialRegion={{ubicacionCliente}}
-      //region={ubicacionCliente}
+      initialRegion={ubicacionCliente}
+      region={ubicacionCliente}
       //onRegionChangeComplete={ubicacionCliente => setUbicacionCliente(ubicacionCliente)}
     >
       <Marker
