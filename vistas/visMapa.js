@@ -9,10 +9,10 @@ import MapView, { Marker } from "react-native-maps";
 const visMapa = (props) => {
 
   const [coordenadas, setCoordenadas] = useState({
-    longitudeCliente: props.route.params.longitude,
-    latitudeCliente: props.route.params.latitude,
-    longitude: 0.01,
-    latitude: 0.01,
+    longitudeCliente: 0,
+    latitudeCliente: 0,
+    longitude: 0,
+    latitude: 0,
     longitudeDelta: 0.01,
     latitudeDelta: 0.01,
   });
@@ -45,6 +45,14 @@ const visMapa = (props) => {
       style={{ flex: 1 }}
       initialRegion={coordenadas}
       region={coordenadas}
+      paddingAdjustmentBehavior="always"
+      showsUserLocation={true}
+      showsMyLocationButton={true}
+      zoomControlEnabled={true}
+      toolbarEnabled={true}
+      userLocationCalloutEnabled={true}
+      followsUserLocation={true}
+      userLocationAnnotationTitle={true}
     //onRegionChangeComplete={coordenadas => setCoordenadas(coordenadas)}
     >
       <Marker
