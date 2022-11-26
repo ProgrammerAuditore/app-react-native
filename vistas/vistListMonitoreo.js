@@ -20,12 +20,14 @@ const vistMonitoreo = (props) => {
                             dataLongitude,
                             dataLatitude,
                             dataCorreo,
+                            dataNombre,
                         } = doc.data();
                         users.push({
                             id_firestore: doc.id,
                             dataLongitude,
                             dataLatitude,
                             dataCorreo,
+                            dataNombre,
                         });
                     });
                 });
@@ -64,6 +66,7 @@ const vistMonitoreo = (props) => {
                                 bottomDivider
                                 // onPress= {()=> alert("Su Id es: "+itemUsuario.id)}
                                 onPress={() => props.navigation.navigate('visMapa', {
+                                    nombreCliente: itemUsuario.dataNombre,
                                     longitude: itemUsuario.dataLongitude,
                                     latitude: itemUsuario.dataLatitude,
                                 })

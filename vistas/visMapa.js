@@ -9,10 +9,13 @@ import MapView, { Marker } from "react-native-maps";
 const visMapa = (props) => {
 
   const [coordenadas, setCoordenadas] = useState({
+    nombreCliente: "Desconocido",
     longitudeCliente: 0,
     latitudeCliente: 0,
-    longitude: 0,
-    latitude: 0,
+    longitudeAdministrador: 0,
+    latitudeAdministrador: 0,
+    longitude: 0.01,
+    latitude: 0.01,
     longitudeDelta: 0.01,
     latitudeDelta: 0.01,
   });
@@ -28,10 +31,11 @@ const visMapa = (props) => {
     let ubicacion = await Location.getCurrentPositionAsync({});
     setCoordenadas({
       ...coordenadas,
+      nombreCliente: props.route.params.nombreCliente,
       longitudeCliente: props.route.params.longitude,
       latitudeCliente: props.route.params.latitude,
-      latitude: ubicacion.coords.latitude,
-      longitude: ubicacion.coords.longitude,
+      latitudeAdministrador: ubicacion.coords.latitude,
+      longitudeAdministrador: ubicacion.coords.longitude,
     });
 
   }
@@ -57,7 +61,7 @@ const visMapa = (props) => {
     >
       <Marker
         title="Cliente"
-        description="Boris"
+        description={coordenadas.nombreCliente.toString()}
         coordinate={{
           latitude: parseFloat(coordenadas.latitudeCliente.toString()),
           longitude: parseFloat(coordenadas.longitudeCliente.toString())
@@ -67,8 +71,8 @@ const visMapa = (props) => {
         pinColor={'green'}
         description="Soy el administrador"
         coordinate={{
-          latitude: parseFloat(coordenadas.latitude.toString()),
-          longitude: parseFloat(coordenadas.longitude.toString())
+          latitude: parseFloat(coordenadas.latitudeAdministrador.toString()),
+          longitude: parseFloat(coordenadas.longitudeAdministrador.toString())
         }}>
       </Marker>
     </MapView>
