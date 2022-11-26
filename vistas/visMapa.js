@@ -17,26 +17,27 @@ const visMapa = (props) => {
     latitudeDelta: 0.01,
   });
 
+  const fncObtenerCoordenadas = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      setErrorMsg('Permission to access location was denied');
+      return;
+    }
+
+    // * Obtener la ubicación del dispositivo
+    let ubicacion = await Location.getCurrentPositionAsync({});
+    setCoordenadas({
+      ...coordenadas,
+      longitudeCliente: props.route.params.longitude,
+      latitudeCliente: props.route.params.latitude,
+      latitude: ubicacion.coords.latitude,
+      longitude: ubicacion.coords.longitude,
+    });
+
+  }
+
   useEffect(() => {
-    (async () => {
-
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
-
-      // let location = await Location.getCurrentPositionAsync({});
-      // setData(location);
-      let ubicacion = await Location.getCurrentPositionAsync({});
-      setCoordenadas({
-        ...coordenadas,
-        longitudeCliente: props.route.params.longitude,
-        latitudeCliente: props.route.params.latitude,
-        latitude: ubicacion.coords.latitude,
-        longitude: ubicacion.coords.longitude,
-      });
-    })();
+    fncObtenerCoordenadas();
   }, []);
 
   return (
@@ -44,7 +45,7 @@ const visMapa = (props) => {
       style={{ flex: 1 }}
       initialRegion={coordenadas}
       region={coordenadas}
-      //onRegionChangeComplete={coordenadas => setCoordenadas(coordenadas)}
+    //onRegionChangeComplete={coordenadas => setCoordenadas(coordenadas)}
     >
       <Marker
         title="Administrador"
