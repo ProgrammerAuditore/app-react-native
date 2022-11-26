@@ -12,7 +12,7 @@ const vistListaUsuario = (props) => {
     try {
       const users = [];
       await firebase.conexion
-        .collection('bdMonitoreo')
+        .collection('clUsuarios')
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
@@ -66,6 +66,20 @@ const vistListaUsuario = (props) => {
           borderColor: 'transparent',
         }}
         onPress={() => fetchPosts()} />
+      <Button
+        title="Crear usuario"
+        icon={{
+          name: 'add',
+          size: 24,
+          color: 'white',
+        }}
+        iconContainerStyle={{ marginRight: 10 }}
+        titleStyle={{ fontWeight: '700' }}
+        buttonStyle={{
+          backgroundColor: 'rgba(111, 202, 186, 1)',
+          borderColor: 'transparent',
+        }}
+        onPress={() => props.navigation.navigate("visCrearUsuario")} />
       <View>
         {
           users.map((itemUsuario) => {

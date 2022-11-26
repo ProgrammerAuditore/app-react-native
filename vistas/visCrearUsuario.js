@@ -1,132 +1,162 @@
-import React from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
-import { Card, Input, Text, Button, Icon, Alert } from '@rneui/base';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Card, Input, Text, Button } from '@rneui/base';
+import Constants from 'expo-constants';
+import * as Location from 'expo-location';
 import firebase from '../firebase';
 
 const visCrearUsuario = (props) => {
 
-  const [state, setState] = useState({
-    usuId: "Default",
-    usuNombres: "Default",
-    usuApellidos: "Default",
-    usuEdad: "Default",
-    usuTelefono: "Default",
-    usuDireccion: "Default",
+  const [data, setData] = useState({
+    correo: "",
+    nombre: "",
+    latitude: 0,
+    longitude: 0,
+    fecha: "",
   });
 
-  const handlerChangeText = (usuNombres, value) => {
-    setState({ ...state, [usuNombres]: value });
-    console.log(state);
-  }
+  const [errorMsg, setErrorMsg] = useState(null);
 
-  const guardarNuevoUsuario = async () => {
-    if (state.usuId === '' || state.usuNombres === '') {
-      alert('Ingrese el campo Id o Nombres');
+  const fncRegistrarDatos = async () => {
+    console.log(data);
+    if (data.nombre.trim() === '' || data.nombre.trim().length == 0) {
+      alert("Escribe un nombre.");
     } else {
       await firebase.conexion
         .collection('bdMonitoreo')
         .add({
-          usuId: state.usuId,
-          usuNombres: state.usuNombres,
-          usuApellidos: state.usuApellidos,
-          usuEdad: state.usuEdad,
-          usuTelefono: state.usuTelefono,
-          usuDireccion: state.usuDireccion,
+          dataNombre: data.nombre,
+          dataLatitude: data.latitude,
+          dataLongitude: data.longitude
+        }).then((resp) => {
+          alert("Datos registrados exitosamente.");
+          props.navigation.navigate('visPrincipal');
         });
-      alert('Usuario creado exitosamente.');
-      props.navigation.navigate('vistListaUsuario');
     }
+  }
+
+  const handlerChangeText = (key, value) => {
+    setData({ ...data, [key]: value });
+  }
+
+  useEffect(() => {
+    (async () => {
+
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      // let location = await Location.getCurrentPositionAsync({});
+      // setData(location);
+      let ubicacion = await Location.getCurrentPositionAsync({});
+      setData({
+        nombre: "",
+        latitude: ubicacion.coords.latitude,
+        longitude: ubicacion.coords.longitude,
+      });
+    })();
+  }, []);
+
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (data) {
+    text = JSON.stringify(data);
   }
 
   return (
     <ScrollView>
-      <View>
-        <Button
-          onPress={() => props.navigation.navigate("vistListaUsuario")}
-          type="solid">
-          Atras
-          <Icon name="home" color="white" />
-        </Button>
-      </View>
       <View style={{ flex: 1, flexDirection: "column" }}>
         <Card>
-          <Card.Title>Crear usuario</Card.Title>
+          <Card.Title>Registrar Coordenadas</Card.Title>
           <Card.Divider></Card.Divider>
 
-          {/* Campo: ID */}
+          {/* Campo: Correo */}
           <View>
-            <Text>ID</Text>
+            <Text>Correo</Text>
             <Input
-              onChangeText={(Valor) => handlerChangeText('usuId', Valor)}
-              placeholder='Ingresar ID'
+              onChangeText={(Valor) => handlerChangeText('correo', Valor)}
+              placeholder='Ingresar correo'
             ></Input>
           </View>
 
-          {/* Campo: Nombres */}
+
+          {/* Campo: Nombre */}
           <View>
-            <Text>Nombres</Text>
+            <Text>Nombre</Text>
             <Input
-              onChangeText={(Valor) => handlerChangeText('usuNombres', Valor)}
-              placeholder='Ingresar nombres'
+              onChangeText={(Valor) => handlerChangeText('nombre', Valor)}
+              placeholder='Ingresar nombre'
             ></Input>
           </View>
 
-          {/* Campo: Apellidos */}
+
+          {/* Campo: Latitude */}
           <View>
-            <Text>Apellidos</Text>
+            <Text>Latitude</Text>
             <Input
-              onChangeText={(Valor) => handlerChangeText('usuApellidos', Valor)}
-              placeholder='Ingresar apellidos'
+              disabled={true}
+              value={String(data.latitude)}
+              placeholder='Ingresar latitude'
             ></Input>
           </View>
 
-          {/* Campo: Edad */}
+          {/* Campo: Longitude */}
           <View>
-            <Text>Edad</Text>
+            <Text>Longitude</Text>
             <Input
-              onChangeText={(Valor) => handlerChangeText('usuEdad', Valor)}
-              placeholder='Ingresar edad'
+              disabled={true}
+              value={String(data.longitude)}
+              placeholder='Ingresar longitude'
             ></Input>
           </View>
 
-          {/* Campo: Telefono */}
-          <View>
-            <Text>Telefono</Text>
-            <Input
-              onChangeText={(Valor) => handlerChangeText('usuTelefono', Valor)}
-              placeholder='Ingresar telefono'
-            ></Input>
-          </View>
-
-          {/* Campo: Direccion */}
-          <View>
-            <Text>Direccion</Text>
-            <Input
-              onChangeText={(Valor) => handlerChangeText('usuDireccion', Valor)}
-              placeholder='Ingresar telefono'
-            ></Input>
-          </View>
-
-          {/* Botón : Crear usuario */}
+          {/* Botón : Guardar Datos */}
           <Button
-            title="Crear usuario"
+            title="Guardar"
             buttonStyle={{ backgroundColor: 'rgba(111, 202, 186, 1)' }}
             containerStyle={{
               marginVertical: 5,
               borderRadius: 5,
             }}
             titleStyle={{ color: 'white', marginHorizontal: 20 }}
-            onPress={() => guardarNuevoUsuario()}
+            onPress={() => fncRegistrarDatos()}
+          />
+
+          {/* Botón : Abrir Mapa */}
+          <Button
+            title="Abrir mapa"
+            buttonStyle={{ backgroundColor: 'rgba(255, 193, 7, 1)' }}
+            containerStyle={{
+              marginVertical: 5,
+              borderRadius: 5,
+            }}
+            titleStyle={{ color: 'white', marginHorizontal: 20 }}
+            onPress={() => props.navigation.navigate('visMapa', {
+              latitude: parseFloat(data.latitude),
+              longitude: parseFloat(data.longitude),
+            })}
           />
 
         </Card>
       </View>
-
     </ScrollView>
   );
 }
 
-export default visCrearUsuario;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  paragraph: {
+    fontSize: 18,
+    textAlign: 'center',
+  },
+});
 
-const styles = StyleSheet.create({});
+export default visCrearUsuario
