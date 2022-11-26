@@ -48,20 +48,21 @@ const visMapa = (props) => {
     //onRegionChangeComplete={coordenadas => setCoordenadas(coordenadas)}
     >
       <Marker
-        title="Administrador"
-        description="Soy el administrador"
-        coordinate={{
-          latitude: parseFloat(coordenadas.latitude.toString()),
-          longitude: parseFloat(coordenadas.longitude.toString())
-        }}>
-      </Marker>
-      <Marker
         title="Cliente"
         description="Boris"
         coordinate={{
           latitude: parseFloat(coordenadas.latitudeCliente.toString()),
           longitude: parseFloat(coordenadas.longitudeCliente.toString())
         }}></Marker>
+      <Marker
+        title="Administrador"
+        pinColor={'green'}
+        description="Soy el administrador"
+        coordinate={{
+          latitude: parseFloat(coordenadas.latitude.toString()),
+          longitude: parseFloat(coordenadas.longitude.toString())
+        }}>
+      </Marker>
     </MapView>
   );
 };
