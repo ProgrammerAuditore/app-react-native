@@ -8,31 +8,34 @@ import firebase from '../firebase';
 const visCrearUsuario = (props) => {
 
   const [data, setData] = useState({
-    correo: "",
-    nombre: "",
-    latitude: 0,
-    longitude: 0,
-    fecha: "",
+    dataCorreo: "",
+    dataNombre: "",
+    dataLatitude: 0,
+    dataLongitude: 0,
+    dataFecha: "",
   });
 
   const [errorMsg, setErrorMsg] = useState(null);
 
   const fncRegistrarDatos = async () => {
     console.log(data);
-    if (data.nombre.trim() === '' || data.nombre.trim().length == 0) {
+    if (data.dataNombre.trim() === '' || data.dataNombre.trim().length == 0) {
       alert("Escribe un nombre.");
-    } else {
-      await firebase.conexion
-        .collection('bdMonitoreo')
-        .add({
-          dataNombre: data.nombre,
-          dataLatitude: data.latitude,
-          dataLongitude: data.longitude
-        }).then((resp) => {
-          alert("Datos registrados exitosamente.");
-          props.navigation.navigate('visPrincipal');
-        });
-    }
+    } else
+      if (data.dataCorreo.trim() === '' || data.dataCorreo.trim().length == 0) {
+        alert("Escribe un correo.");
+      } else {
+        await firebase.conexion
+          .collection('clUsuarios')
+          .add({
+            dataNombre: data.dataNombre,
+            dataLatitude: data.dataLatitude,
+            dataLongitude: data.dataLongitude
+          }).then((resp) => {
+            alert("Datos registrados exitosamente.");
+            props.navigation.navigate('visPrincipal');
+          });
+      }
   }
 
   const handlerChangeText = (key, value) => {
@@ -52,9 +55,10 @@ const visCrearUsuario = (props) => {
       // setData(location);
       let ubicacion = await Location.getCurrentPositionAsync({});
       setData({
-        nombre: "",
-        latitude: ubicacion.coords.latitude,
-        longitude: ubicacion.coords.longitude,
+        dataFecha: "",
+        dataNombre: "",
+        dataLatitude: ubicacion.coords.latitude,
+        dataLongitude: ubicacion.coords.longitude,
       });
     })();
   }, []);
@@ -73,22 +77,23 @@ const visCrearUsuario = (props) => {
           <Card.Title>Registrar Coordenadas</Card.Title>
           <Card.Divider></Card.Divider>
 
-          {/* Campo: Correo */}
-          <View>
-            <Text>Correo</Text>
-            <Input
-              onChangeText={(Valor) => handlerChangeText('correo', Valor)}
-              placeholder='Ingresar correo'
-            ></Input>
-          </View>
-
 
           {/* Campo: Nombre */}
           <View>
             <Text>Nombre</Text>
             <Input
-              onChangeText={(Valor) => handlerChangeText('nombre', Valor)}
+              onChangeText={(Valor) => handlerChangeText('dataNombre', Valor)}
               placeholder='Ingresar nombre'
+            ></Input>
+          </View>
+
+
+          {/* Campo: Correo */}
+          <View>
+            <Text>Correo</Text>
+            <Input
+              onChangeText={(Valor) => handlerChangeText('dataCorreo', Valor)}
+              placeholder='Ingresar correo'
             ></Input>
           </View>
 
@@ -98,20 +103,22 @@ const visCrearUsuario = (props) => {
             <Text>Latitude</Text>
             <Input
               disabled={true}
-              value={String(data.latitude)}
+              value={String(data.dataLatitude)}
               placeholder='Ingresar latitude'
             ></Input>
           </View>
+
 
           {/* Campo: Longitude */}
           <View>
             <Text>Longitude</Text>
             <Input
               disabled={true}
-              value={String(data.longitude)}
+              value={String(data.dataLongitude)}
               placeholder='Ingresar longitude'
             ></Input>
           </View>
+
 
           {/* Botón : Guardar Datos */}
           <Button
@@ -125,6 +132,7 @@ const visCrearUsuario = (props) => {
             onPress={() => fncRegistrarDatos()}
           />
 
+
           {/* Botón : Abrir Mapa */}
           <Button
             title="Abrir mapa"
@@ -135,10 +143,12 @@ const visCrearUsuario = (props) => {
             }}
             titleStyle={{ color: 'white', marginHorizontal: 20 }}
             onPress={() => props.navigation.navigate('visMapa', {
-              latitude: parseFloat(data.latitude),
-              longitude: parseFloat(data.longitude),
+              nombreCliente: data.dataNombre,
+              latitude: data.dataLatitude,
+              longitude: data.dataLongitude,
             })}
           />
+
 
         </Card>
       </View>
