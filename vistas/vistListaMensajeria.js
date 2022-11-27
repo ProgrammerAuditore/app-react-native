@@ -87,7 +87,9 @@ const vistListaMensajeria = (props) => {
                       <Icon name="send" size={15} color="white" />
                     </Button>
                     <Button
-                      onPress={() => props.navigation.navigate("vistListarMensajes")}
+                      onPress={() => props.navigation.navigate("vistListarMensajes",
+                        { paramCorreo: itemUsuario.dataCorreo }
+                      )}
                       type="solid">
                       <Icon name="message" size={15} color="white" />
                     </Button>

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import { ListItem, Avatar, Card, Input, Text, Button, Badge, Icon, withBadge } from "@rneui/themed";
+import { ListItem, Avatar, Card, Input, Text, Button, Badge, Icon, withBadge, FAB } from "@rneui/themed";
 import firebase from '../firebase';
 
 const vistListarMensajes = (props) => {
@@ -16,17 +16,28 @@ const vistListarMensajes = (props) => {
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
+            // Obtener los datos de los registros
             const {
               dataMensaje,
               dataNombre,
-              dataCorreo,
+              dataFecha,
+              dataRemitente,
+              dataRemitenteNombre,
+              dataDestinatario,
             } = doc.data();
-            users.push({
-              id_firestore: doc.id,
-              dataMensaje,
-              dataNombre,
-              dataCorreo,
-            });
+
+            // Seleccionar solo los elementos de dataCorreo = dataDestinatario 
+            if (dataDestinatario == props.route.params.paramCorreo) {
+              users.push({
+                id_firestore: doc.id,
+                dataMensaje,
+                dataNombre,
+                dataFecha,
+                dataRemitente,
+                dataRemitenteNombre,
+                dataDestinatario,
+              });
+            }
           });
         });
       setUsers(users);
@@ -71,8 +82,6 @@ const vistListarMensajes = (props) => {
           users.map((itemUsuario) => {
             return (
               <Card key={itemUsuario.id_firestore}>
-                <Card.Title>{itemUsuario.dataCorreo}</Card.Title>
-                <Card.Divider></Card.Divider>
                 {/* Campo: Detalle usuario */}
                 <View>
                   <ListItem>
@@ -86,8 +95,12 @@ const vistListarMensajes = (props) => {
                       />
                     </View>
                     <ListItem.Content>
-                      <ListItem.Subtitle>{itemUsuario.dataNombre}</ListItem.Subtitle>
-                      <ListItem.Subtitle>{itemUsuario.dataMensaje}</ListItem.Subtitle>
+                      <ListItem.Title>De: {itemUsuario.dataRemitenteNombre}</ListItem.Title>
+                      <ListItem.Subtitle style={{ fontSize: 8 }}>{itemUsuario.dataFecha}</ListItem.Subtitle>
+                      <ListItem.Subtitle style={{ fontSize: 8 }}>Para: {itemUsuario.dataNombre}</ListItem.Subtitle>
+                      <Text>
+                        {itemUsuario.dataMensaje}
+                      </Text>
                     </ListItem.Content>
                   </ListItem>
                 </View>
