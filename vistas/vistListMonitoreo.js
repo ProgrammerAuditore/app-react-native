@@ -21,6 +21,7 @@ const vistMonitoreo = (props) => {
                             dataLatitude,
                             dataCorreo,
                             dataNombre,
+                            dataFecha,
                         } = doc.data();
                         users.push({
                             id_firestore: doc.id,
@@ -28,6 +29,7 @@ const vistMonitoreo = (props) => {
                             dataLatitude,
                             dataCorreo,
                             dataNombre,
+                            dataFecha,
                         });
                     });
                 });
@@ -83,7 +85,9 @@ const vistMonitoreo = (props) => {
                                     />
                                 </View>
                                 <ListItem.Content>
-                                    <ListItem.Title>{itemUsuario.dataCorreo}</ListItem.Title>
+                                    <ListItem.Title>{itemUsuario.dataNombre}</ListItem.Title>
+                                    <ListItem.Subtitle style={{ fontSize: 8 }}>{itemUsuario.dataFecha}</ListItem.Subtitle>
+                                    <ListItem.Subtitle style={{ fontSize: 8 }}>{itemUsuario.dataCorreo}</ListItem.Subtitle>
                                     <ListItem.Subtitle>Longitude : {itemUsuario.dataLongitude}</ListItem.Subtitle>
                                     <ListItem.Subtitle>Latitude : {itemUsuario.dataLatitude}</ListItem.Subtitle>
                                 </ListItem.Content>

@@ -21,6 +21,7 @@ const vistListaMensajeria = (props) => {
               dataLatitude,
               dataCorreo,
               dataNombre,
+              dataFecha,
             } = doc.data();
             users.push({
               id_firestore: doc.id,
@@ -28,6 +29,7 @@ const vistListaMensajeria = (props) => {
               dataLatitude,
               dataCorreo,
               dataNombre,
+              dataFecha,
             });
           });
         });
@@ -77,7 +79,8 @@ const vistListaMensajeria = (props) => {
                 </View>
                 <ListItem.Content>
                   <ListItem.Title>{itemUsuario.dataNombre}</ListItem.Title>
-                  <ListItem.Subtitle>{itemUsuario.dataCorreo}</ListItem.Subtitle>
+                  <ListItem.Subtitle style={{ fontSize: 8 }}>{itemUsuario.dataFecha}</ListItem.Subtitle>
+                  <ListItem.Subtitle style={{ fontSize: 8 }}>{itemUsuario.dataCorreo}</ListItem.Subtitle>
                   <View
                     style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}
                   >
