@@ -9,33 +9,35 @@ const vistListarMensajes = (props) => {
   const [users, setUsers] = useState([]);
 
   const fetchPosts = async () => {
+    const findCorreo = props.route.params.paramCorreo;
     try {
       const users = [];
       await firebase.conexion
         .collection('clMensajes')
+        .where("dataDestinatario", "==", findCorreo)
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             // Obtener los datos de los registros
             const {
-              dataMensaje,
-              dataNombre,
-              dataFecha,
-              dataRemitente,
-              dataRemitenteNombre,
+              dataDestinatarioNombre,
               dataDestinatario,
+              dataRemitenteNombre,
+              dataRemitente,
+              dataMensaje,
+              dataFecha,
             } = doc.data();
 
             // Seleccionar solo los elementos de dataCorreo = dataDestinatario 
             if (dataDestinatario == props.route.params.paramCorreo) {
               users.push({
                 id_firestore: doc.id,
-                dataMensaje,
-                dataNombre,
-                dataFecha,
-                dataRemitente,
-                dataRemitenteNombre,
+                dataDestinatarioNombre,
                 dataDestinatario,
+                dataRemitenteNombre,
+                dataRemitente,
+                dataMensaje,
+                dataFecha,
               });
             }
           });
@@ -97,7 +99,7 @@ const vistListarMensajes = (props) => {
                     <ListItem.Content>
                       <ListItem.Title>De: {itemUsuario.dataRemitenteNombre}</ListItem.Title>
                       <ListItem.Subtitle style={{ fontSize: 8 }}>{itemUsuario.dataFecha}</ListItem.Subtitle>
-                      <ListItem.Subtitle style={{ fontSize: 8 }}>Para: {itemUsuario.dataNombre}</ListItem.Subtitle>
+                      <ListItem.Subtitle style={{ fontSize: 8 }}>Para: {itemUsuario.dataDestinatarioNombre}</ListItem.Subtitle>
                       <Text>
                         {itemUsuario.dataMensaje}
                       </Text>

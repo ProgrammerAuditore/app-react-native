@@ -6,11 +6,12 @@ import firebase from '../firebase';
 const visCrearMensaje = (props) => {
 
   const [state, setState] = useState({
+    dataDestinatarioNombre: "Default",
     dataDestinatario: "Default",
-    dataNombre: "Default",
+    dataRemitenteNombre: "Victor J.",
+    dataRemitente: "victor@example.com",
     dataMensaje: "Default",
     dataFecha: "Default",
-    dataRemitente: "victor@example.com",
   });
 
   const handlerChangeText = (element, value) => {
@@ -38,11 +39,12 @@ const visCrearMensaje = (props) => {
       await firebase.conexion
         .collection('clMensajes')
         .add({
+          dataDestinatarioNombre: state.dataDestinatarioNombre,
           dataDestinatario: state.dataDestinatario,
-          dataNombre: state.dataNombre,
+          dataRemitenteNombre: state.dataRemitenteNombre,
+          dataRemitente: state.dataRemitente,
           dataMensaje: state.dataMensaje,
           dataFecha: state.dataFecha,
-          dataRemitente: state.dataRemitente,
         });
       alert('Mensaje registrado exitosamente.');
       props.navigation.navigate('vistListaMensajeria');
@@ -56,14 +58,15 @@ const visCrearMensaje = (props) => {
         .doc(Id)
         .get()
         .then((documentSnapshot) => {
+          // * Obtener campo dataCorreo, dataNombre y Documento ID
+          // * de la colección de clUsuarios
           if (documentSnapshot.exists) {
             setState({
               ...state,
               idDocumento: Id,
-              dataRemitente: "victor@example.com",
               dataFecha: fncObtenerFecha(),
               dataDestinatario: documentSnapshot.data().dataCorreo,
-              dataNombre: documentSnapshot.data().dataNombre,
+              dataDestinatarioNombre: documentSnapshot.data().dataNombre,
             });
           }
         })
@@ -102,7 +105,7 @@ const visCrearMensaje = (props) => {
               <ListItem.Content>
                 {/* <ListItem.Title>{itemUsuario.dataDestinatario}</ListItem.Title> */}
                 <ListItem.Subtitle>{state.dataDestinatario}</ListItem.Subtitle>
-                <ListItem.Subtitle>{state.dataNombre}</ListItem.Subtitle>
+                <ListItem.Subtitle>{state.dataDestinatarioNombre}</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
           </View>
