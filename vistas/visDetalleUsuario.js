@@ -35,7 +35,7 @@ const visDetalleUsuario = (props) => {
             });
           } else {
             alert("Error: Usuario no registrado.");
-            props.navigation.navigate("visPrincipal");
+            props.navigation.navigate('vistListaUsuario', {boton: 'btnUsuarios'});
           }
         })
         .catch(() => {
@@ -59,8 +59,8 @@ const visDetalleUsuario = (props) => {
           dataLatitude: user.dataLatitude,
         })
         .then(() => {
-          alert('Usuario Actualizado!');
-          props.navigation.navigate("visPrincipal");
+          props.navigation.navigate('vistListaUsuario', {boton: 'btnUsuarios'});
+          alert('Usuario: Actualizado!');
         });
       //setUsers(users);
     } catch (e) {
@@ -70,7 +70,7 @@ const visDetalleUsuario = (props) => {
   };
 
   const confirmarEliminacion = () => {
-    Alert.alert('Eliminando Usuario', '¿Está seguro que desea eliminar?',
+    Alert.alert('Eliminando usuario...', '¿Está seguro que desea eliminar?',
       [{ text: 'Si', onPress: () => mtdEliminarUsuario(user.idFirestore) },
       { text: 'No', onPress: () => alert("Cancelado") }
       ]);
@@ -84,8 +84,8 @@ const visDetalleUsuario = (props) => {
         .doc(id)
         .delete()
         .then(() => {
-          alert('Usuario Eliminado!');
-          props.navigation.navigate('visPrincipal');
+          alert('Usuario: Eliminado!');
+          props.navigation.navigate('vistListaUsuario', {boton: 'btnUsuarios'});
         });
       //setUsers(users);
     } catch (e) {

@@ -47,8 +47,8 @@ const visCrearUsuario = (props) => {
             dataLatitude: data.dataLatitude,
             dataLongitude: data.dataLongitude
           }).then((resp) => {
-            alert("Datos registrados exitosamente.");
-            props.navigation.navigate('vistListaUsuario');
+            props.navigation.navigate('vistListaUsuario', { boton: 'btnUsuarios' });
+            alert('Usuario: Registrado!');
           });
       }
   }
@@ -137,7 +137,7 @@ const visCrearUsuario = (props) => {
 
           {/* Botón : Guardar Datos */}
           <Button
-            title="Guardar"
+            title="Registrar"
             buttonStyle={{ backgroundColor: 'rgba(111, 202, 186, 1)' }}
             containerStyle={{
               marginVertical: 5,
