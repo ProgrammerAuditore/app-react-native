@@ -17,6 +17,19 @@ const visCrearUsuario = (props) => {
 
   const [errorMsg, setErrorMsg] = useState(null);
 
+  const fncObtenerFecha = () => {
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    return (
+      date + '/' + month + '/' + year
+      + ' ' + hours + ':' + min + ':' + sec
+    );
+  }
+
   const fncRegistrarDatos = async () => {
     console.log(data);
     if (data.dataNombre.trim() === '' || data.dataNombre.trim().length == 0) {
@@ -29,6 +42,8 @@ const visCrearUsuario = (props) => {
           .collection('clUsuarios')
           .add({
             dataNombre: data.dataNombre,
+            dataCorreo: data.dataCorreo,
+            dataFecha: data.dataFecha,
             dataLatitude: data.dataLatitude,
             dataLongitude: data.dataLongitude
           }).then((resp) => {
@@ -55,8 +70,8 @@ const visCrearUsuario = (props) => {
       // setData(location);
       let ubicacion = await Location.getCurrentPositionAsync({});
       setData({
-        dataFecha: "",
-        dataNombre: "",
+        ...data,
+        dataFecha: fncObtenerFecha(),
         dataLatitude: ubicacion.coords.latitude,
         dataLongitude: ubicacion.coords.longitude,
       });
