@@ -12,7 +12,7 @@ const vistListaMensajeria = (props) => {
     try {
       const users = [];
       await firebase.conexion
-        .collection('bdMonitoreo')
+        .collection('clUsuarios')
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
@@ -82,9 +82,7 @@ const vistListaMensajeria = (props) => {
                     style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}
                   >
                     <Button
-                      onPress={() => props.navigation.navigate("visCrearMensaje", {
-                        paramId: itemUsuario.id_firestore
-                      })}
+                      onPress={() => props.navigation.navigate("visCrearMensaje", { paramId: itemUsuario.id_firestore })}
                       type="solid">
                       <Icon name="send" size={15} color="white" />
                     </Button>

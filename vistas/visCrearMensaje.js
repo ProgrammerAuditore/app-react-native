@@ -28,14 +28,14 @@ const visCrearMensaje = (props) => {
           dataMensaje: state.dataMensaje,
         });
       alert('Mensaje registrado exitosamente.');
-      props.navigation.navigate('visPrincipal');
+      props.navigation.navigate('vistListaMensajeria');
     }
   }
 
   const getUserById = async (Id) => {
     try {
       await firebase.conexion
-        .collection('bdMonitoreo')
+        .collection('clUsuarios')
         .doc(Id)
         .get()
         .then((documentSnapshot) => {
