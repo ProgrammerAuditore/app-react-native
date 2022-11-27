@@ -6,26 +6,43 @@ import firebase from '../firebase';
 const visCrearMensaje = (props) => {
 
   const [state, setState] = useState({
-    dataCorreo: "Default",
+    dataDestinatario: "Default",
     dataNombre: "Default",
     dataMensaje: "Default",
+    dataFecha: "Default",
+    dataRemitente: "victor@example.com",
   });
 
-  const handlerChangeText = (dataCorreo, value) => {
-    setState({ ...state, [dataCorreo]: value });
+  const handlerChangeText = (element, value) => {
+    setState({ ...state, [element]: value });
     console.log(state);
   }
 
+  const fncObtenerFecha = () => {
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    return (
+      date + '/' + month + '/' + year
+      + ' ' + hours + ':' + min + ':' + sec
+    );
+  }
+
   const fncEnviarMensaje = async () => {
-    if (state.dataMensaje === '' || state.dataCorreo === '') {
+    if (state.dataMensaje === '' || state.dataDestinatario === '') {
       alert('Ingrese el campo Id o Nombres');
     } else {
       await firebase.conexion
         .collection('clMensajes')
         .add({
-          dataCorreo: state.dataCorreo,
+          dataDestinatario: state.dataDestinatario,
           dataNombre: state.dataNombre,
           dataMensaje: state.dataMensaje,
+          dataFecha: state.dataFecha,
+          dataRemitente: state.dataRemitente,
         });
       alert('Mensaje registrado exitosamente.');
       props.navigation.navigate('vistListaMensajeria');
@@ -43,7 +60,9 @@ const visCrearMensaje = (props) => {
             setState({
               ...state,
               idDocumento: Id,
-              dataCorreo: documentSnapshot.data().dataCorreo,
+              dataRemitente: "victor@example.com",
+              dataFecha: fncObtenerFecha(),
+              dataDestinatario: documentSnapshot.data().dataCorreo,
               dataNombre: documentSnapshot.data().dataNombre,
             });
           }
@@ -81,8 +100,8 @@ const visCrearMensaje = (props) => {
                 />
               </View>
               <ListItem.Content>
-                {/* <ListItem.Title>{itemUsuario.dataCorreo}</ListItem.Title> */}
-                <ListItem.Subtitle>{state.dataCorreo}</ListItem.Subtitle>
+                {/* <ListItem.Title>{itemUsuario.dataDestinatario}</ListItem.Title> */}
+                <ListItem.Subtitle>{state.dataDestinatario}</ListItem.Subtitle>
                 <ListItem.Subtitle>{state.dataNombre}</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
