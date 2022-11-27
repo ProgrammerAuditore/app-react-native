@@ -23,12 +23,14 @@ const vistListaUsuario = (props) => {
               dataLongitude,
               dataLatitude,
               dataCorreo,
+              dataNombre,
             } = doc.data();
             users.push({
               id_firestore: doc.id,
               dataLongitude,
               dataLatitude,
               dataCorreo,
+              dataNombre,
             });
           });
         });
@@ -104,7 +106,8 @@ const vistListaUsuario = (props) => {
                   />
                 </View>
                 <ListItem.Content>
-                  <ListItem.Title>{itemUsuario.dataCorreo}</ListItem.Title>
+                  <ListItem.Title>{itemUsuario.dataNombre}</ListItem.Title>
+                  <ListItem.Subtitle>{itemUsuario.dataCorreo}</ListItem.Subtitle>
                   <ListItem.Subtitle>Longitude : {itemUsuario.dataLongitude}</ListItem.Subtitle>
                   <ListItem.Subtitle>Latitude : {itemUsuario.dataLatitude}</ListItem.Subtitle>
                 </ListItem.Content>
