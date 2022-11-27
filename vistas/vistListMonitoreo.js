@@ -12,7 +12,7 @@ const vistMonitoreo = (props) => {
         try {
             const users = [];
             await firebase.conexion
-                .collection('bdMonitoreo')
+                .collection('clUsuarios')
                 .get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
