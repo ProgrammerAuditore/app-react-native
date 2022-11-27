@@ -48,7 +48,7 @@ const visCrearUsuario = (props) => {
             dataLongitude: data.dataLongitude
           }).then((resp) => {
             alert("Datos registrados exitosamente.");
-            props.navigation.navigate('visPrincipal');
+            props.navigation.navigate('vistListaUsuario');
           });
       }
   }

@@ -2,9 +2,12 @@ import { StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ListItem, Avatar, Button, Text, Badge, Icon, withBadge } from "@rneui/themed";
+import { useIsFocused } from '@react-navigation/native';
 import firebase from '../firebase';
 
 const vistListaUsuario = (props) => {
+
+  const isFocused = useIsFocused();
 
   const [users, setUsers] = useState([]);
 
@@ -46,8 +49,10 @@ const vistListaUsuario = (props) => {
   }
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    if (isFocused) {
+      fetchPosts();
+    }
+  }, [isFocused]);
 
   return (
     <ScrollView>

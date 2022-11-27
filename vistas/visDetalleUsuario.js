@@ -7,6 +7,7 @@ const visDetalleUsuario = (props) => {
 
   const [user, setUser] = useState({
     idFirestore: "",
+    dataNombre: "Default",
     dataCorreo: "Default",
     dataLongitude: "Default",
     dataLatitude: "Default",
@@ -19,7 +20,7 @@ const visDetalleUsuario = (props) => {
   const getUserById = async (Id) => {
     try {
       await firebase.conexion
-        .collection('bdMonitoreo')
+        .collection('clUsuarios')
         .doc(Id)
         .get()
         .then((documentSnapshot) => {
@@ -32,6 +33,9 @@ const visDetalleUsuario = (props) => {
               dataLongitude: documentSnapshot.data().dataLongitude,
               dataLatitude: documentSnapshot.data().dataLatitude,
             });
+          } else {
+            alert("Error: Usuario no registrado.");
+            props.navigation.navigate("visPrincipal");
           }
         })
         .catch(() => {
@@ -46,7 +50,7 @@ const visDetalleUsuario = (props) => {
   const mtdActualizarUsuario = async (id) => {
     try {
       await firebase.conexion
-        .collection('bdMonitoreo')
+        .collection('clUsuarios')
         .doc(id)
         .update({
           dataNombre: user.dataNombre,
@@ -76,7 +80,7 @@ const visDetalleUsuario = (props) => {
     try {
       const users = [];
       await firebase.conexion
-        .collection('bdMonitoreo')
+        .collection('clUsuarios')
         .doc(id)
         .delete()
         .then(() => {
