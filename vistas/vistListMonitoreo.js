@@ -86,10 +86,10 @@ const vistMonitoreo = (props) => {
                                 </View>
                                 <ListItem.Content>
                                     <ListItem.Title>{itemUsuario.dataNombre}</ListItem.Title>
-                                    <ListItem.Subtitle style={{ fontSize: 8 }}>{itemUsuario.dataFecha}</ListItem.Subtitle>
-                                    <ListItem.Subtitle style={{ fontSize: 8 }}>{itemUsuario.dataCorreo}</ListItem.Subtitle>
-                                    <ListItem.Subtitle>Longitude : {itemUsuario.dataLongitude}</ListItem.Subtitle>
-                                    <ListItem.Subtitle>Latitude : {itemUsuario.dataLatitude}</ListItem.Subtitle>
+                                    <ListItem.Subtitle style={styles.fecha}>{itemUsuario.dataFecha}</ListItem.Subtitle>
+                                    <ListItem.Subtitle style={styles.correo}>{itemUsuario.dataCorreo}</ListItem.Subtitle>
+                                    <ListItem.Subtitle style={styles.longitude} >{itemUsuario.dataLongitude}</ListItem.Subtitle>
+                                    <ListItem.Subtitle style={styles.latitude}>Latitude : {itemUsuario.dataLatitude}</ListItem.Subtitle>
                                 </ListItem.Content>
                             </ListItem>
                         );
@@ -103,5 +103,28 @@ const vistMonitoreo = (props) => {
 export default vistMonitoreo;
 
 const styles = StyleSheet.create({
-
+    fecha: {
+        fontSize: 8,
+        color: "gray"
+    },
+    correo: {
+        fontSize: 8,
+        color: "gray"
+    },
+    latitude: {
+        fontSize: 8,
+        color: "white",
+        backgroundColor: "blue",
+        padding: 6,
+        borderRadius: 5,
+        margin: 2,
+    },
+    longitude: {
+        fontSize: 8,
+        color: "white",
+        backgroundColor: "green",
+        padding: 6,
+        borderRadius: 5,
+        margin: 2,
+    }
 });
