@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import { Text } from '@rneui/themed';
 //import MapView from 'react-native-maps'
 import MapView, { Marker } from "react-native-maps";
+import MapViewDirections from 'react-native-maps-directions';
 
 const visMapa = (props) => {
 
@@ -59,6 +60,23 @@ const visMapa = (props) => {
       userLocationAnnotationTitle={true}
     //onRegionChangeComplete={coordenadas => setCoordenadas(coordenadas)}
     >
+      <MapViewDirections
+        origin={{
+          longitude: parseFloat(coordenadas.longitudeAdministrador.toString()),
+          latitude: parseFloat(coordenadas.latitudeAdministrador.toString()),
+          longitudeDelta: 0.01,
+          latitudeDelta: 0.01,
+        }}
+        destination={{
+          longitude: parseFloat(coordenadas.longitudeCliente.toString()),
+          latitude: parseFloat(coordenadas.latitudeCliente.toString()),
+          longitudeDelta: 0.01,
+          latitudeDelta: 0.01,
+        }}
+        apikey={"AIzaSyBGGyrDrrfBPciozC9tnmfW48-17oxSz68"} // insert your API Key here
+        strokeWidth={4}
+        strokeColor="#111111"
+      />
       <Marker
         title="Cliente"
         description={coordenadas.nombreCliente.toString()}
@@ -75,6 +93,7 @@ const visMapa = (props) => {
           longitude: parseFloat(coordenadas.longitudeAdministrador.toString())
         }}>
       </Marker>
+
     </MapView>
   );
 };
