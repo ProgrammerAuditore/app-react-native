@@ -79,6 +79,7 @@ const vistLogIn = (props) => {
                             value={state.usuPassword}
                             onChangeText={(Valor) => handlerChangeText('usuPassword', Valor)}
                             placeholder='Ingresar contraseña'
+                            secureTextEntry
                         ></Input>
                     </View>
 
